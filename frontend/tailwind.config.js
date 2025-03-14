@@ -4,7 +4,13 @@ export default {
   content: [    "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",flowbite.content(),],
   theme: {
-    extend: {},
+    extend: {
+      
+    },
+    
+    colors: {
+      'primaryColor': '#FF69B4',
+    },
   },
   plugins: [  flowbite.plugin(),],
 }
