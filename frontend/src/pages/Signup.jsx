@@ -26,15 +26,40 @@ const Signup = () => {
     }else if(!letterRegex.test(lastName)){
       return setErrorMessage("Last name must contain only letters.");
     }else if(!numberRegex.test(contactNo)){
-      return setErrorMessage("check your contact number");
+      return setErrorMessage("check your contact number,only numbers can be aded");
     }else if(!passwordRegex.test(password)){
       return setErrorMessage("Check At least one lette,one number,one special character and Minimum 8 character");
     }else if(password !== rePassword){
       return setErrorMessage("Passwors are not match");
-    }else{
-      console.log("succsess");
-    }
+    }else
+    {
+      try {
+        const response = await fetch("http://localhost:3000/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ 
+            firstName,
+            lastName,
+            email,
+            password,
+            rePassword,
+            contactNo,
+           }),
+          }
+        
+        )
 
+      const data = await response.json();
+      // console.log("Server Response:", data);
+      setErrorMessage(data);
+      } catch (e) {
+        console.error("Error:", e);
+        setMessage("Something went wrong!");
+      }
+
+    }
 
 
   }
@@ -43,7 +68,7 @@ const Signup = () => {
       <div className="bg-gray-200 p-8 rounded-3xl shadow-lg w-96 lg:w-1/2 m-5">
         <h2 className="text-2xl font-bold text-center text-gray-800 ">Sign Up</h2>
         
-        <form className='space-y-3 ' onSubmit={RegistrationSubmit} method="POST">
+        <form className='space-y-3 ' onSubmit={RegistrationSubmit} >
           <div className="mb-4">
             <label className="font-medium">First Name</label>
             <input type="text" 
@@ -72,7 +97,7 @@ const Signup = () => {
 
           <div className="mb-4">
             <label className=" font-medium ">Contact number</label>
-            <input type="number" 
+            <input type="text" 
             name='contactNo' 
             placeholder="0112345678" 
             className="w-full px-4 py-2 border rounded-full focus:ring-1 focus:ring-pink-500" />
