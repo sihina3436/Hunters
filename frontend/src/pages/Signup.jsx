@@ -1,10 +1,8 @@
 import React from 'react'
-import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
 import { useState } from "react";
 
 const Signup = () => {
-  const [errorMessage, setErrorMessage] = useState("");
-
+  const [errorMessage, setErrorMessage] = useState('');
   const RegistrationSubmit=async(e)=>{
     e.preventDefault();
     
@@ -65,7 +63,7 @@ const Signup = () => {
   }
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="bg-gray-200 p-8 rounded-3xl shadow-lg w-96 lg:w-1/2 m-5">
+      <div className="bg-gray-200 p-8 rounded-3xl shadow-lg w-96 lg:w-1/3 m-5">
         <h2 className="text-2xl font-bold text-center text-gray-800 ">Sign Up</h2>
         
         <form className='space-y-3 ' onSubmit={RegistrationSubmit} >
