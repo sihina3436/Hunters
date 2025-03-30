@@ -41,9 +41,9 @@ const Signup = () => {
             firstName,
             lastName,
             email,
-            password,
-            rePassword,
             contactNo,
+            password,
+            
            }),
           }
         
