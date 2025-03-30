@@ -18,7 +18,7 @@ const Signup = () => {
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
 
     if(!firstName || !lastName || !email || !password || !rePassword){
-      return setErrorMessage("Please fill all fields.");
+      return setErrorMessage("Please fill all fields..");
     }else if(!letterRegex.test(firstName)){
       return setErrorMessage("First name must contain only letters.");
     }else if(!letterRegex.test(lastName)){

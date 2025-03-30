@@ -20,8 +20,10 @@ app.post("/signup",async(req , res)=>{
         contactNo,
     }=req.body;
 
-    if(!firstName || !lastName || !email || !password || !rePassword){
-        res.json("Please fill all fields.")
+    
+
+    if(!firstName || !lastName || !email || !password || !rePassword || !contactNo){
+        res.json("Please fill all fields...")
     }else if(!firstName){
         res.json("First name must contain only letters.");
     }else if(!lastName){
@@ -33,7 +35,8 @@ app.post("/signup",async(req , res)=>{
     }else if(password !== rePassword){
         res.json("Passwors are not match");
     }else{
-        res.json("success");
+        console.log(firstName)
+        // res.json("success");
     }
 
 })
