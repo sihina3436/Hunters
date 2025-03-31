@@ -5,6 +5,7 @@ const app = express()
 const cors = require('cors')
 const mongoose = require("mongoose");
 const User = require('./Models/user');
+const bcrypt = require("bcrypt");
 
 
 const PORT = process.env.PORT;
@@ -16,6 +17,7 @@ app.use(express.json());
 
 
 app.post("/signup", async (req, res) => {
+    
     const {
         firstName,
         lastName,
@@ -24,44 +26,68 @@ app.post("/signup", async (req, res) => {
         password
     } = req.body;
 
+    const letterRegex = /^[A-Za-z]+$/;
+    const numberRegex = /^\d{10}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
 
-
-    if (!firstName || !lastName || !email || !password || !contactNo) {
-        res.json("Please fill all fields...")
-    } else if (!firstName) {
+    if(!firstName || !lastName || !email || !password || !contactNo){
+        res.json("Please fill all fields..");
+    }else if(!letterRegex.test(firstName)){
         res.json("First name must contain only letters.");
-    } else if (!lastName) {
+    }else if(!letterRegex.test(lastName)){
         res.json("Last name must contain only letters.");
-    } else if (!contactNo) {
+    }else if(!numberRegex.test(contactNo)){
         res.json("check your contact number,only numbers can be aded");
-    } else if (!password) {
+    }else if(!passwordRegex.test(password)){
         res.json("Check At least one lette,one number,one special character and Minimum 8 character");
-    } else {
-
+    }else{
+        // console.log(firstName)
         try {
             console.log(firstName)
-            // check if user already exists
+            // check  user already exists
             const user = await User.findOne({ email });
-            if (user) return res.status(400).json({ message: "User already exists" });
+            if (user){
+                res.json("User already exists");
+            } 
 
-
-            const newUser = new User({firstName, lastName,email,contactNo,password});
-
+            const newUser = new User({ firstName, lastName, email, contactNo, password });
             await newUser.save();
-            res.status(201).json({ message: "User registered successfully", user: newUser });
+            res.json("User registered successfully");
+            
         }
         catch (err) {
             console.error(err);
-            res.status(500).send("Server Error");
+            
         }
     }
+    
 })
 
 
 app.post("/signin", async (req, res) => {
     const { email, password } = req.body;
-   
-    
+    // console.log(password)
+
+    if (!email || !password) {
+        return res.json("Please enter email and password." );
+    }else{
+        try {
+            const user = await User.findOne({email});
+            const isMatch = await bcrypt.compare(password, user.password);
+
+            if(!isMatch) {
+                return res.json("Invalid email or password");
+                
+            }else{
+                console.log("User login successfully.");
+                return res.json( "User login successfully.");
+            }
+        } catch (err) {
+            console.error(err);
+            res.json("Server error.");
+        }
+}
+
 
 
 })

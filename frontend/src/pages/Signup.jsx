@@ -17,7 +17,7 @@ const Signup = () => {
     const numberRegex = /^\d{10}$/;
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
 
-    if(!firstName || !lastName || !email || !password || !rePassword){
+    if(!firstName || !lastName || !email || !password || !rePassword|| !contactNo || !contactNo){
       return setErrorMessage("Please fill all fields..");
     }else if(!letterRegex.test(firstName)){
       return setErrorMessage("First name must contain only letters.");
@@ -124,8 +124,16 @@ const Signup = () => {
           
           <button type="submit" className="w-full bg-primaryColor text-white py-2 rounded-full hover:bg-pink-500 ">Sign Up</button>
         </form>
+           
+        <p className="text-center text-sm text-gray-600 mt-4">
+           Do you alredy have a acoount <a href="signin" className="text-blue-500 hover:underline">Signin</a>
+           <br/>
+           or
+          </p>
 
+          <p>
         <div className="text-center mt-4 text-gray-600">Continue with <a href='#'>Google account</a></div>
+        </p>
         
       </div>
     </div>
