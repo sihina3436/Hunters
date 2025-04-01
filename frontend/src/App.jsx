@@ -8,6 +8,7 @@ const App = () => {
       <Navbar/>
       <Outlet/>
     </>
-
+  )
+}
 export default App
 
