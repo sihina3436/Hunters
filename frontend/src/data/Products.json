@@ -1,0 +1,111 @@
+[
+    {
+      "_id": 1,
+      "name": "Leather Handbag",
+      "category": "accessories",
+      "description": "Stylish leather handbag with ample storage space.",
+      "price": 79.99,
+      "oldPrice": 99.99,
+      "image": "https://img.freepik.com/free-photo/young-brunette-girl-wearing-respiratory-face-mask-against-coronavirus_273443-3983.jpg?t=st=1742677543~exp=1742681143~hmac=b807dd5849d80f3fc9520b532ad4e433c395fc29b4931cce8b94d8358e733631&w=740",
+      "color": "black",
+      "rating": 4.5,
+      "author":"admin"
+    },
+    {
+      "_id": 2,
+      "name": "Evening Gown",
+      "category": "dress",
+      "description": "Elegant evening gown for special occasions.",
+      "price": 149.99,
+      "oldPrice": 199.99,
+      "image": "https://img.freepik.com/free-photo/spectacular-ginger-girl-denim-pants-having-fun-while-posing-fashionable-white-young-lady-jacket-smiling_197531-11057.jpg?t=st=1742677528~exp=1742681128~hmac=fc77a57452d719d5d74d85e21be64e4901bc59b2ea284f77c556d46db662fb3d&w=740",
+      "color": "red",
+      "rating": 1.0
+    },
+    {
+      "_id": 3,
+      "name": "Gold Necklace",
+      "category": "jewellery",
+      "description": "Exquisite gold necklace with intricate design.",
+      "price": 199.99,
+      "image": "https://img.freepik.com/free-photo/amazing-woman-with-long-wavy-hair-kissing-french-bulldog-portrait-ginger-girl-embracing-her-puppy-pink_197531-11037.jpg?t=st=1742677679~exp=1742681279~hmac=98e1b49b197a3a622e02fe989c8b40295da200de9702ffb47d775f178fe9682b&w=740",
+      "color": "gold",
+      "rating": 4.7
+    },
+    {
+      "_id": 4,
+      "name": "Matte Lipstick",
+      "category": "cosmetics",
+      "description": "Long-lasting matte lipstick in various shades.",
+      "price": 19.99,
+      "image": "https://img.freepik.com/free-photo/adorable-curly-woman-paints-her-lips-with-red-lipstick-laughs-pink-background_197531-17569.jpg?t=st=1742677769~exp=1742681369~hmac=0af8abe6a0201ddb0126dd27fc8472f439f13c3e8e93de99d497fb08cdf9154b&w=740",
+      "color": "red",
+      "rating": 4.2
+    },
+    {
+      "_id": 5,
+      "name": "Silk Scarf",
+      "category": "accessories",
+      "description": "Luxurious silk scarf with vibrant colors.",
+      "price": 29.99,
+      "oldPrice": 39.99,
+      "image": "https://img.freepik.com/free-photo/excited-ginger-lady-hat-holding-straw-bag-ecstatic-long-haired-girl-summer-outfit-enjoying-good-day_197531-11080.jpg?t=st=1742677851~exp=1742681451~hmac=27e3f3fc2441c8275837946450e2ab66a5559cdf36cfea85549b02dfb04bbad0&w=740",
+      "color": "blue",
+      "rating": 4.3
+    },
+    {
+      "_id": 6,
+      "name": "Cocktail Dress",
+      "category": "dress",
+      "description": "Chic cocktail dress for parties and events.",
+      "price": 89.99,
+      "image": "https://img.freepik.com/free-photo/naughty-woman-yellow-glasses-inflates-bubble-gum-orange-background_197531-14857.jpg?t=st=1742677891~exp=1742681491~hmac=10de800200e733f26d47c2a320aef7a52501e29a1eb09734bf309dd2025f5cc2&w=740",
+      "color": "black",
+      "rating": 4.4
+    },
+    {
+      "_id": 7,
+      "name": "Diamond Earrings",
+      "category": "jewellery",
+      "description": "Sparkling diamond earrings that add elegance to any outfit.",
+      "price": 299.99,
+      "oldPrice": 349.99,
+      "image": "https://img.freepik.com/free-photo/red-haired-woman-sunglasses-points-fingers-left-woman-yellow-top-smiling-isolated-orange-background_197531-14842.jpg?t=st=1742677932~exp=1742681532~hmac=a634d3f5451c8be0493661d87712cf65db4314196fe2d59233e1746ef8df5737&w=740",
+      "color": "silver",
+      "rating": 4.8
+    },
+    {
+      "_id": 8,
+      "name": "Foundation",
+      "category": "cosmetics",
+      "description": "High-coverage foundation for a flawless finish.",
+      "price": 39.99,
+      "image": "https://img.freepik.com/free-photo/close-up-portrait-ginger-lady-with-bright-blue-eyes-girl-straw-hat-floral-print-top-orange-space_197531-15343.jpg?t=st=1742677974~exp=1742681574~hmac=3b4dbeae07ca07f2e924ad52bd938c60ef8f9dcacc20261db10d27f763fa9278&w=740",
+      "color": "beige",
+      "rating": 4.1
+    },
+    {
+      "_id": 9,
+      "name": "Sunglasses",
+      "category": "accessories",
+      "description": "Trendy sunglasses with UV protection.",
+      "price": 49.99,
+      "image": "https://img.freepik.com/free-photo/portrait-pretty-lady-red-warm-jacket-stylish-eyeglasses_197531-15046.jpg?t=st=1742678011~exp=1742681611~hmac=e48a0db6d3f3d7b099f97a863d03a7f2e2ea2ecbcbd72bb251a39a54b9d25dac&w=740",
+      "color": "black",
+      "rating": 4.6
+    },
+    {
+      "_id": 10,
+      "name": "Casual Pants",
+      "category": "dress",
+      "description": "Comfortable maxi dress for casual outings.",
+      "price": 59.99,
+      "oldPrice": 79.99,
+      "image": "https://img.freepik.com/free-photo/interested-woman-posing-sunglasses_197531-13203.jpg?t=st=1742678047~exp=1742681647~hmac=876e462c81629ac8bf351e2a2683b6088ef251ac8049c40e655a1ec58a5c5165&w=740",
+      "color": "green",
+      "rating": 3
+    }
+  ]
+  
+  
+  
