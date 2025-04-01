@@ -107,7 +107,7 @@ const Navbar = () => {
                   <Link to="/dress" onClick={() => setMenuOpen(false)}>Dress Collection</Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-200">
-                  <Link to="/shoose" onClick={() => setMenuOpen(false)}>Shoose Collection'</Link>
+                  <Link to="/shoose" onClick={() => setMenuOpen(false)}>Shoes Collection'</Link>
                 </li>
               </ul>
             )}
