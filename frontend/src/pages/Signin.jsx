@@ -17,24 +17,32 @@ const Login = () => {
     e.preventDefault();
     const data = { email, password };
     
-    console.log("Sending request:", data); // ✅ Debugging Log
+    console.log("Sending request:", data); // 
 
-    try {
-      const response = await loginUser(data).unwrap();
-      console.log("Server Response:", response);
-      const {token,user} = response;
-      dispatch(setUser({user})); // Store user in Redux state
-      alert('Login successful!');
-      navigate('/'); // ✅ Redirect to home after login
-    } catch (error) {
-      console.error("Error:", error);
-      setMessage(error?.data?.message || 'Please provide a valid email and password');
+    if (!email || !password) {
+      setMessage("Please enter email and password.");
+    } else {
+
+        try {
+        const response = await loginUser(data).unwrap();
+        console.log("Server Response:", response);
+        const {token,user} = response;
+        dispatch(setUser({user})); // Store user in Redux state
+        alert('Login successful!');
+        navigate('/'); // 
+      } catch (error) {
+        console.error("Error:", error);
+        setMessage(error?.data?.message || 'Please provide a valid email and password');
+      }
+
     }
+
+ 
   };
   return (
-    <section className="h-screen flex items-center justify-center">
-      <div className="max-w-sm border shadow bg-white mx-auto p-8">
-        <h2 className="text-2xl font-semibold pt-5">Please Login</h2>
+    <section className="h-screen flex items-center justify-center ">
+      <div className="max-w-sm border shadow bg-white mx-auto p-8 rounded-3xl">
+        <h2 className="text-2xl font-semibold text-center ">Please Login</h2>
         <form className="space-y-5 max-w-sm mx-auto pt-8" onSubmit={handleLogin}>
           <input
             type="email"
@@ -42,9 +50,9 @@ const Login = () => {
             id="email"
             placeholder="Email Address"
             value={email}
-            onChange={(e) => setEmail(e.target.value)} // Update state
+            onChange={(e) => setEmail(e.target.value)} 
             required
-            className="w-full bg-gray-100 focus:outline-none px-5 py-3"
+            className="w-full px-2 border rounded-full bg-gray-100 focus:ring-1 focus:ring-pink-500"
           />
           <input
             type="password"
@@ -52,23 +60,28 @@ const Login = () => {
             id="password"
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)} // Update state
+            onChange={(e) => setPassword(e.target.value)} 
             required
-            className="w-full bg-gray-100 focus:outline-none px-5 py-3"
+             className="w-full px-2 border rounded-full bg-gray-100 focus:ring-1 focus:ring-pink-500"
           />
-          {message && <p className="text-red-500">{message}</p>} {/* Display error message */}
+          {message && <p className="text-red-500 text-sm">{message}</p>} {/* Display error message */}
 
           <button
             type="submit"
-            className="w-full mt-5 bg-primary text-white hover:bg-indigo-500 font-medium py-3 rounded-md"
+            className="w-full mt-5 bg-primary text-white hover:bg-pink-500 font-medium py-3 rounded-full"
           >
 Login
           </button>
         </form>
+        <p className="my-2 italic text-sm text-center">
+        <Link to="" className="text-red-700 px-1 underline">
+        Forget password
+          </Link>{' '}
+        </p>
 
-        <p className="my-5 italic text-sm text-center">
+        <p className="my-3 italic text-sm text-center">
           Don't have an account?
-          <Link to="/register" className="text-red-700 px-1 underline">
+          <Link to="/Register" className="text-red-700 px-1 underline">
             Register
           </Link>{' '}
           here.

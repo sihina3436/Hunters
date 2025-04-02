@@ -18,41 +18,56 @@ const Register = () => {
             email,
             password
         }
-        try {
-            await registerUser(data).unwrap();
-            alert("Registration successful!")
-            navigate('/login')
-        } catch (error) {
-            setMessage("Registration failed")
-        }
 
+        const letterRegex = /^[A-Za-z]+$/;
+        // const numberRegex = /^\d{10}$/;
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
+
+        if(!username || !email || !password){
+            setMessage("Please fill all fields..");
+        }else if(!username.match(letterRegex)){
+            setMessage("Username should contain only letters");
+        } else if(!password.match(passwordRegex)){
+            setMessage("Check At least one lette,one number,one special character and Minimum 8 character");
+        }else{
+            try {
+                await registerUser(data).unwrap();
+                alert("Registration successful!")
+                navigate('/login')
+            } catch (error) {
+                setMessage("Registration failed")
+            }
+
+        } 
     }
+
     return (
         <section className='h-screen flex items-center justify-center'>
-            <div className='max-w-sm border shadow bg-white mx-auto p-8'>
-                <h2 className='text-2xl font-semibold pt-5'>Please Register</h2>
+            <div className='shadow bg-white p-8 rounded-3xl max-w-sm border mx-auto'>
+                
+            <h2 className="text-2xl font-semibold text-center ">Please Register</h2>
                 <form onSubmit={handleRegister} className='space-y-5 max-w-sm mx-auto pt-8'>
                     <input type="text" name="username" id="username"
                         onChange={(e) => setUsername(e.target.value)}
                         placeholder='username' required
-                        className='w-full bg-gray-100 focus:outline-none px-5 py-3'
+                        className="w-full px-4 py-2 border rounded-full  focus:ring-1 focus:ring-pink-500 bg-gray-100"
                     />
                     <input type="email" name="email" id="email"
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder='Email Address' required
-                        className='w-full bg-gray-100 focus:outline-none px-5 py-3'
+                        className="w-full px-4 py-2 border rounded-full  focus:ring-1 focus:ring-pink-500 bg-gray-100"
                     />
                     <input type="password" name="password" id="password"
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder='Password' required
-                        className='w-full bg-gray-100 focus:outline-none px-5 py-3'
+                        className="w-full px-4 py-2 border rounded-full  focus:ring-1 focus:ring-pink-500 bg-gray-100"
                     />
                     {
-                        message && <p className='text-red-500'>{message}</p>
+                        message && <p className='text-red-500 text-sm'>{message}</p>
                     }
 
                     <button type='submit'
-                        className='w-full mt-5 bg-primary text-white hover:bg-indigo-500 font-medium py-3 rounded-md'
+                        className='w-full bg-primary text-white py-2 rounded-full hover:bg-pink-500'
                     >Register</button>
                 </form>
 
