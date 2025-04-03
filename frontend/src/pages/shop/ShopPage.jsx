@@ -19,38 +19,38 @@ const  filters = {
 }
 
 const ShopPage = () => {
-    const [products, setProducts] = useState(ProductData);
+    //const [products, setProducts] = useState(ProductData);
     const[filtersState,setFiltersState] = useState({
         category:'all',
         color:'all',
         priceRange: ''
     });
 
-    // Filtering Function
-    const applyFilters = () => {
-        let filterdProducts = ProductData;
+    // // Filtering Function
+    // const applyFilters = () => {
+    //     let filterdProducts = ProductData;
 
-        //Filter by Category
-        if(filtersState.category && filtersState.category !== 'all'){
-            filterdProducts = filterdProducts.filter(product => product.category === filtersState.category);
-        }
+    //     //Filter by Category
+    //     if(filtersState.category && filtersState.category !== 'all'){
+    //         filterdProducts = filterdProducts.filter(product => product.category === filtersState.category);
+    //     }
 
-        //Filter by Color
-        if(filtersState.color && filtersState.color !== 'all'){
-            filterdProducts = filterdProducts.filter(product => product.color.includes(filtersState.color));
-        }
+    //     //Filter by Color
+    //     if(filtersState.color && filtersState.color !== 'all'){
+    //         filterdProducts = filterdProducts.filter(product => product.color.includes(filtersState.color));
+    //     }
 
-        //Filter by Price Range
-        if(filtersState.priceRange){
-            filterdProducts = filterdProducts.filter(product => product.price >= filtersState.priceRange.min && product.price <= filtersState.priceRange.max);
-        }
+    //     //Filter by Price Range
+    //     if(filtersState.priceRange){
+    //         filterdProducts = filterdProducts.filter(product => product.price >= filtersState.priceRange.min && product.price <= filtersState.priceRange.max);
+    //     }
 
-        setProducts(filterdProducts);
-    }
+    //     setProducts(filterdProducts);
+    // }
 
-    useEffect(() => {
-        applyFilters();
-    }, [filtersState]);
+    // useEffect(() => {
+    //     applyFilters();
+    // }, [filtersState]);
 
     const clearFilters = () => {
         setFiltersState({
@@ -59,6 +59,22 @@ const ShopPage = () => {
             priceRange: ''
         });
     }
+
+    const handlePageChange = (pageNumber) => {
+        if (pageNumber > 0 && pageNumber <= totalPages) {
+            setCurrentPage(pageNumber);
+        }
+    };
+
+    if(isLoading) {
+        return <div className='text-center text-2xl font-medium'>Loading...</div>
+    }
+    if(error) {
+        return <div className='text-center text-2xl font-medium'>Error loading Products {error?.message || "Unknown error occurred"}</div>
+    }
+
+    const startProduct = (currentPage - 1) * productsPerPage + 1;
+    const endProduct = startProduct + products.length - 1;
 
   return (
     <>
@@ -78,12 +94,40 @@ const ShopPage = () => {
             <div>
                 <h3 className='text-xl font-medium mb-4'>Available Products:{products.length}</h3>
                 <ProductGrid products={products}/>
+
+                <div className='mt-6 flex justify-center'>
+                            <button
+                                disabled={currentPage === 1}
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                className='px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-2'>
+                                Previous
+                            </button>
+
+                            {[...Array(totalPages)].map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => handlePageChange(index + 1)}
+                                    className={`px-4 py-2 ${currentPage === index + 1 ? 'bg-primary text-white' : 'bg-gray-300 text-gray-700'} rounded-md mx-1`}>
+                                    {index + 1}
+                                </button>
+                            ))}
+
+                            <button
+                                disabled={currentPage === totalPages}
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                className='px-4 py-2 bg-gray-300 text-gray-700 rounded-md ml-2'>
+                                Next
+                            </button>
+                        </div>
+
+
             </div>
         </div>
-
     </section>
 
-</>  // reduce the margin between first section adn second section
+
+
+</> 
   )
 }
 
