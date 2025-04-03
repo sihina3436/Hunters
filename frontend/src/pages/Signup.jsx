@@ -1,75 +1,82 @@
-import React,{useState} from 'react'
-import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
-import { VscEye,VscEyeClosed } from "react-icons/vsc";
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import { useRegisterUserMutation } from '../redux/features/auth/authApi.js'
 
+const Register = () => {
+    const [message, setMessage] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-const Signup = () => {
-  const [showPassword,setOpen]= useState(false)
-  const toggle=()=>{
-    setOpen(!showPassword)
-  }
+    const [registerUser, { isLoading }] = useRegisterUserMutation();
+    const navigate = useNavigate()
 
-  return (
-    
-      <div className="flex justify-center items-center h-screen"> 
-        <div className=" px-5 py-15  bg-zinc-200 w-full mx-3 md:w-1/2 rounded-3xl">
-          <h1 className='text-center font-bold text-3xl p-2 py-6'>Sign Up</h1>
-            <form className='space-y-6 action="#" method="POST" '>
-          
-              <div >
-                <Label value='Enter Username'></Label>
-                <TextInput type="text" placeholder='Username' id='username' className='mt-2'></TextInput>
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        const data = {
+            username,
+            email,
+            password
+        }
+
+        const letterRegex = /^[A-Za-z]+$/;
+        // const numberRegex = /^\d{10}$/;
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
+
+        if(!username || !email || !password){
+            setMessage("Please fill all fields..");
+        }else if(!username.match(letterRegex)){
+            setMessage("Username should contain only letters");
+        } else if(!password.match(passwordRegex)){
+            setMessage("Check At least one lette,one number,one special character and Minimum 8 character");
+        }else{
+            try {
+                await registerUser(data).unwrap();
+                alert("Registration successful!")
+                navigate('/login')
+            } catch (error) {
+                setMessage("Registration failed")
+            }
+
+        } 
+    }
+
+    return (
+        <section className='h-screen flex items-center justify-center'>
+            <div className='shadow bg-white p-8 rounded-3xl max-w-sm border mx-auto'>
                 
-              </div>
+            <h2 className="text-2xl font-semibold text-center ">Please Register</h2>
+                <form onSubmit={handleRegister} className='space-y-5 max-w-sm mx-auto pt-8'>
+                    <input type="text" name="username" id="username"
+                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder='username' required
+                        className="w-full px-4 py-2 border rounded-full  focus:ring-1 focus:ring-pink-500 bg-gray-100"
+                    />
+                    <input type="email" name="email" id="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder='Email Address' required
+                        className="w-full px-4 py-2 border rounded-full  focus:ring-1 focus:ring-pink-500 bg-gray-100"
+                    />
+                    <input type="password" name="password" id="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder='Password' required
+                        className="w-full px-4 py-2 border rounded-full  focus:ring-1 focus:ring-pink-500 bg-gray-100"
+                    />
+                    {
+                        message && <p className='text-red-500 text-sm'>{message}</p>
+                    }
 
-              <div>
-                <Label value='Enter Email Address'></Label>
-                <TextInput type="email" placeholder='email' id='email' className='  mt-2'></TextInput>
-              </div>
+                    <button type='submit'
+                        className='w-full bg-primary text-white py-2 rounded-full hover:bg-pink-500'
+                    >Register</button>
+                </form>
 
-
-              <div className="relative">
-                <Label value='Enter Password'></Label>
-                  <TextInput type={(showPassword===false) ? 'password' : password} placeholder='Enter 8 characters or more' id='password' className=' mt-2'></TextInput>
-                  <div className='text-2xl absolute top-10 right-5'>
-                  {
-                    (showPassword===false)?<VscEye onClick={toggle} />:
-                    <VscEyeClosed onClick={toggle}/>
-                  }
-                  </div>
-              </div>
-
-              <div >
-                <Label value='Re Enter Password'></Label>
-                <TextInput type="password" placeholder='Re Enter Password' id='password2' className='mt-2'></TextInput>
-              </div>
-
-              <div>
-                <Label className=' text-red-600'>Invalid password </Label>
-                
-                
-              </div>
-              <button type="submit" 
-              class="items-center min-w-full text-white bg-fuchsia-300 outline-5 
-               font-bold rounded-full  px-5 py-2.5 text-center ">Sign Up</button>
-
-            </form>
-              <div className="other-obtion my-3">
-                <p className='text-center '>Or Continue with other ways</p>
-                <div className="icons flex justify-center gap-10 py-5">
-
-                  <div className="1 bg-black w-20 h-20" ></div>
-                  <div className="2  bg-black w-20 h-20"></div>
-                  <div className="3  bg-black w-20 h-20"></div>
-                </div>
-              </div>
-
-
-          </div>
-      </div>
-    
-  
-  )
+                <p className='my-5 italic text-sm text-center'>Have an account? Please
+                    <Link to="/login" className='text-red-700 px-1 underline'>Login</Link>.
+                </p>
+            </div>
+        </section>
+    )
 }
 
-export default Signup
+export default Register
