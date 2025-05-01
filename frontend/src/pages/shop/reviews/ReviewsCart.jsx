@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import commentorIcon from '../../../assets/userImg.jpg';
 import { formatDate } from '../../../utils/formateDate';
 import RatingStars from '../../../components/RatingStars';
+import PostAReviews from './PostAReviews';
+
 
 const ReviewsCart = ({ ProductRevies }) => {
   const [isModelOpen, setIsModelOpen] = useState(false);
@@ -56,7 +58,7 @@ const ReviewsCart = ({ ProductRevies }) => {
       </div>
 
       {/* Review Modal */}
-      
+      <PostAReviews isModelOpen={isModelOpen} handleClose={handleCloseReviewModal} />
     </div>
   );
 };
