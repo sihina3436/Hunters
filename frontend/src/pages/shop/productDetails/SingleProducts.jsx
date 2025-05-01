@@ -4,6 +4,8 @@ import { Link ,useParams} from 'react-router-dom'
 import { useFetchProductByIdQuery } from '../../../redux/features/products/productsApi.js'; 
 import RatingStars from '../../../components/RatingStars';
 import { addToCart } from '../../../redux/features/cart/CartReducer.js';
+import ReviewsCart from '../reviews/ReviewsCart.jsx';
+
 
 
 const SingleProducts = () => {
@@ -83,6 +85,9 @@ const SingleProducts = () => {
                 </div>
             </section>
 
+            <section className='max-w-[1400px] mx-auto px-4 py-20  mt-8'>
+                    <ReviewsCart ProductRevies={ProductRevies}/>
+            </section>            
           
     </>
   )
