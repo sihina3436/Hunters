@@ -18,7 +18,17 @@ app.use(cors({
   credentials: true,
 }));
 
+
 // routes
+const authRoutes = require('./src/users/user.routes');
+const orderRoutes = require('../backend/src/orders/order.route.js');
+const statsRoutes = require('../backend/src/stats/stats.routes.js');
+
+
+app.use('/api/auth', authRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/stats', statsRoutes);
+
 mongoose.connect(process.env.DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
