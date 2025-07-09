@@ -39,7 +39,7 @@ const Refund = () => {
           <div>
             <h2 className="text-xl font-semibold text-pink-700 mb-2">Refund Status</h2>
             <p>
-              You'll receive a confirmation email once your refund has been processed. If delays occur, please contact support@zerozcloths.lk.
+              You'll receive a confirmation email once your refund has been processed. If delays occur, please contact zerozclothes@gmail.com.
             </p>
           </div>
         </div>

@@ -37,7 +37,7 @@ Shipping Information
       </h2>
       <ul className="list-disc pl-6 space-y-1">
         <li>Orders below Rs. 5,000: Rs. 350 flat fee</li>
-        <li>Orders above Rs. 5,000: Free shipping</li>
+        <li>Orders above Rs. 15,000: Free shipping</li>
       </ul>
     </section>
 

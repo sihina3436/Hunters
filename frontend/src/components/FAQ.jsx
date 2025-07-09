@@ -40,7 +40,7 @@ answer: (
 <span>
 You can reach us via our{' '}
 <a href="/contactus" className="text-pink-600 hover:text-pink-800 transition" >Contact Us </a>{' '} or send an email directly to{' '}
-<a href="mailto:support@zerozcloths.lk" className="text-pink-600 hover:text-pink-800 transition" > support@zerozcloths.lk</a>.</span>
+<a href="mailto:zerozclothes@gmail.com " className="text-pink-600 hover:text-pink-800 transition" > zerozclothes@gmail.com </a>.</span>
 ),},
 {
 question: 'Are my payment details secure?',

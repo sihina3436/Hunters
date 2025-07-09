@@ -70,12 +70,9 @@ We’d love to hear from you. Reach out with any questions, feedback, or suggesi
       </div>
       <div>
         <h3 className="text-xl font-semibold text-pink-700 mb-2"> <i className="ri-mail-line text-2xl text-pink-600"></i> Email</h3>
-        <a href="mailto:support@zerozcloths.lk" className='hover:text-pink-700'> support@zerozcloths.lk</a>
+        <a href="mailto:support@zerozcloths.lk" className='hover:text-pink-700'> zerozclothes@gmail.com </a>
       </div>
-      {/* <div>
-        <h3 className="text-xl font-semibold text-pink-700 mb-2">🕒 Working Hours</h3>
-        <p>Mon – Sat: 9:00 AM – 6:00 PM</p>
-      </div> */}
+
       <div>
         <h3 className="text-xl font-semibold text-pink-700 mb-4">Follow Us On</h3>
           <div className="flex space-x-3 text-gray-600">
