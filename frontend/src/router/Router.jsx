@@ -12,7 +12,7 @@ import PrivateRoute from "./PrivateRoute.jsx";
 import DashBoardLayout from '../pages/dashboard/DashBoardLayout.jsx';
 import UserDMain from '../pages/dashboard/user/dashboard/userDMain.jsx';
 import AdminDMain from '../pages/dashboard/admin/dashboard/AdminDMain.jsx';
-import AddProduct from '../pages/dashboard/admin/addProduct/AddProduct.jsx';
+
 
 
 
@@ -57,7 +57,7 @@ const Router = createBrowserRouter([
     
             // admin Routes (only for admin)
             {path: 'admin',element: <PrivateRoute role="admin"><AdminDMain/></PrivateRoute>},
-            {path: 'add-product',element: <PrivateRoute role="admin"><AddProduct/></PrivateRoute>},
+            {path: 'add-product',element: <PrivateRoute role="admin"><div>Add product</div></PrivateRoute>},
             {path: 'manage-products',element: <PrivateRoute role="admin"><div>manage-products</div></PrivateRoute>},
             {path: 'update-products/:id',element: <PrivateRoute role="admin"><div>update-products/:id</div></PrivateRoute>},
             {path: 'users',element: <PrivateRoute role="admin"><div>users</div></PrivateRoute>},
