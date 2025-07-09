@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import Cart from "../pages/shop/Cart";
+import { useLogoutUserMutation } from "../redux/features/auth/authApi";
+import userImg from "../assets/userImg.jpg";
+import { logout } from "../redux/features/auth/authSlice";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
-
+  // Redux state for cart products
   const products = useSelector((state) => state.cart.products);
   console.log(products);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -29,7 +34,7 @@ const Navbar = () => {
     { lableL: "Dashboard", path: "/dashboard/admin" },
     { lableL: "Manage Items", path: "/dashboard/manage-products" },
     { lableL: "All orders", path: "/dashboard/manage-all-orders" },
-    { lableL: "Add new Post", path: "/dashboard/add-new-post" },
+    { lableL: "Add Product", path: "/dashboard/add-product" },
   ];
 
   // user dropdown menu
@@ -55,7 +60,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className=" fixed top-0 left-0 w-full bg-white shadow-md z-50">
+    <header className="  top-0 left-0 w-full bg-white shadow-md z-50">
       <nav className="max-w-screen-2xl mx-auto px-4 flex items-center justify-between py-4">
         {/* Left: Navigation Links - Large Screens */}
         <div className="hidden md:flex flex-1">
@@ -68,7 +73,7 @@ const Navbar = () => {
             </li>
             <li
               className="relative font-medium text-text-dark hover:text-primary cursor-pointer"
-              // onMouseEnter={() => setDropdownOpen(true)} guys i decided to remove this line of code because it give an error.( i think onclick is better)
+              // onMouseEnter={() => setDropdownOpen(true)} guys i decided to remove this line of code because it give me an error. i think onclick is better
               // onMouseLeave={() => setDropdownOpen(false)}
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
@@ -164,7 +169,6 @@ const Navbar = () => {
               </Link>
             )}
           </span>
-
           {/* Hamburger Menu */}
           <button
             className="md:hidden text-2xl text-text-dark"
@@ -220,7 +224,7 @@ const Navbar = () => {
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-200">
                   <Link to="/shoose" onClick={() => setMenuOpen(false)}>
-                    Shoes Collection'
+                    Shoose Collection'
                   </Link>
                 </li>
               </ul>
