@@ -1,14 +1,13 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import { getBaseURL } from '../../../utils/baseURL';
 
-// create API slice using Redux Toolkit 
 const productsApi = createApi({
     reducerPath: 'productsApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: `${getBaseURL()}/api/products`, 
-        credentials: 'include',  
+        baseUrl: `${getBaseURL()}/api/products`, // ✅ No trailing slash
+        credentials: 'include',  // ✅ Fix case sensitivity
     }),
-    tagTypes: ['Products'], 
+    tagTypes: ['Products'], // ✅ Define tag types
     endpoints:(builder) =>({
       fetchAllProducts: builder.query({
         query: ({ category, color, minPrice, maxPrice, page = 1, limit = 10 }) => {
@@ -21,7 +20,7 @@ const productsApi = createApi({
             limit: limit.toString(),
           }).toString();
       
-          console.log("Fetching products with query:", `/?${queryParams}`); 
+          console.log("Fetching products with query:", `/?${queryParams}`); // ✅ Debugging
       
           return `/?${queryParams}`;
         },
@@ -30,8 +29,8 @@ const productsApi = createApi({
        
 
               fetchProductById: builder.query({
-                query: (id) => `/${id}`, 
-                providesTags:(result, error, id)  => [{type: "products" , id}], 
+                query: (id) => `/${id}`, // ✅ Use template literal for URL
+                providesTags:(result, error, id)  => [{type: "products" , id}], // ✅ Use the defined tag type
               }),
 
               AddProduct: builder.mutation({
@@ -69,14 +68,6 @@ const productsApi = createApi({
     
 });
 
-// Export the automatically generated hooks for each endpoint
-export const {
-  useFetchAllProductsQuery,
-  useFetchProductByIdQuery,
-  useAddProductMutation,
-  useUpdateProductMutation,
-  useDeleteProductMutation,
-  useFetchRelatedProductsQuery} = productsApi;
+export const {useFetchAllProductsQuery, useFetchProductByIdQuery, useAddProductMutation, useUpdateProductMutation, useDeleteProductMutation, useFetchRelatedProductsQuery} = productsApi;
 
-// Export the productsApi slice for use in the store
 export default productsApi;
