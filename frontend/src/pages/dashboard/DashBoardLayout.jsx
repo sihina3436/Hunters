@@ -38,4 +38,4 @@ const DashBoardLayout = () => {
   )
 }
 
-export default DashBoardLayout 
+export default DashBoardLayout // change UI as modern. no need seperate block 

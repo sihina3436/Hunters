@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import RatingStars from "../../components/RatingStars";
-import { addToCart } from "../../redux/features/CartReducer";
+import { addToCart } from "../../redux/features/cart/CartReducer";
 
 const ProductGrid = ({products}) => {
 
