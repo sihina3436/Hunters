@@ -96,7 +96,7 @@ const Navbar = () => {
               )}
             </li>
             <li className="font-medium text-text-dark hover:text-primary">
-              <Link to="/contact">Contact</Link>
+              <Link to="/contactus">Contact</Link>
             </li>
           </ul>
         </div>
