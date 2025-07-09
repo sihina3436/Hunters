@@ -10,10 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.6.1",
     "axios": "^1.7.9",
     "flowbite-react": "^0.10.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+<<<<<<< HEAD
+=======
+    "react-redux": "^9.2.0",
+>>>>>>> 5846a438eb2ce1e664571b84ad40780c2cd0bee0
     "react-router-dom": "^7.1.5",
     "remixicon": "^4.6.0",
     "swiper": "^11.2.6"
