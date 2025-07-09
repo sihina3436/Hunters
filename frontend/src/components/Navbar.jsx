@@ -59,54 +59,6 @@ const Navbar = () => {
     }
   };
 
-  const products = useSelector((state) => state.cart.products);
-  console.log(products);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const handleCartToggle = () => {
-    setIsCartOpen(!isCartOpen);
-  };
-
-  // Show user if Logged in
-  const dispathch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
-  const [logoutUser] = useLogoutUserMutation();
-  const navigate = useNavigate();
-
-  // user dropdown menu
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const handleDropdownToggle = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const adminDropdownMenus = [
-    { lableL: "Dashboard", path: "/dashboard/admin" },
-    { lableL: "Manage Items", path: "/dashboard/manage-products" },
-    { lableL: "All orders", path: "/dashboard/manage-all-orders" },
-    { lableL: "Add new Post", path: "/dashboard/add-new-post" },
-  ];
-
-  // user dropdown menu
-  const userDropdownMenus = [
-    { lableL: "Dashboard", path: "/dashboard" },
-    { lableL: "profile", path: "/dashboard/profile" },
-    { lableL: "payment", path: "/dashboard/payments" },
-    { lableL: "Orders", path: "/dashboard/orders" },
-  ];
-
-  const dropdownMenus =
-    user?.role === "admin" ? [...adminDropdownMenus] : [...userDropdownMenus];
-
-  // handle logout
-  const handleLogout = async () => {
-    try {
-      await logoutUser().unwrap();
-      dispathch(logout());
-      navigate("/login");
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
-
   return (
     <header className="  top-0 left-0 w-full bg-white shadow-md z-50">
       <nav className="max-w-screen-2xl mx-auto px-4 flex items-center justify-between py-4">
