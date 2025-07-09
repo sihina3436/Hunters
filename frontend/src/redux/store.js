@@ -1,13 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit'
-<<<<<<< HEAD
-import cartReducer from './features/CartReducer';
-
-export const store = configureStore({
-    reducer:{
-        cart: cartReducer
-    },
-
-=======
 import cartReducer from './features/cart/CartReducer.js';
 import authApi from './features/auth/authApi.js';
 import authReducer from './features/auth/authSlice.js';
@@ -29,5 +20,4 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authApi.middleware, productsApi.middleware,reviewApi.middleware, statsApi.middleware), // Add RTK Query middleware
->>>>>>> admin-dashboard-and-more
 });

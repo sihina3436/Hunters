@@ -1,14 +1,10 @@
 import React, { useState } from "react";
-<<<<<<< HEAD
-import { Link } from "react-router-dom";
-=======
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Cart from "../pages/shop/Cart";
 import { useLogoutUserMutation } from "../redux/features/auth/authApi";
 import userImg from "../assets/userImg.jpg";
 import { logout } from "../redux/features/auth/authSlice";
->>>>>>> admin-dashboard-and-more
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -221,10 +217,6 @@ const Navbar = () => {
               </Link>
             )}
           </span>
-<<<<<<< HEAD
-
-=======
->>>>>>> admin-dashboard-and-more
           {/* Hamburger Menu */}
           <button
             className="md:hidden text-2xl text-text-dark"
@@ -280,11 +272,7 @@ const Navbar = () => {
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-200">
                   <Link to="/shoose" onClick={() => setMenuOpen(false)}>
-<<<<<<< HEAD
-                    Shoes Collection'
-=======
                     Shoose Collection'
->>>>>>> admin-dashboard-and-more
                   </Link>
                 </li>
               </ul>

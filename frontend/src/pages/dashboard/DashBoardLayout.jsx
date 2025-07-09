@@ -38,8 +38,4 @@ const DashBoardLayout = () => {
   )
 }
 
-<<<<<<< HEAD
-export default DashBoardLayout 
-=======
 export default DashBoardLayout // change UI as modern. no need seperate block 
->>>>>>> admin-dashboard-and-more

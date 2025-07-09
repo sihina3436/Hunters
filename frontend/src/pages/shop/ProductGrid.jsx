@@ -2,11 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import RatingStars from "../../components/RatingStars";
-<<<<<<< HEAD
-import { addToCart } from "../../redux/features/CartReducer";
-=======
 import { addToCart } from "../../redux/features/cart/CartReducer";
->>>>>>> admin-dashboard-and-more
 
 const ProductGrid = ({products}) => {
 

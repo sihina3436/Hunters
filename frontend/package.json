@@ -11,26 +11,11 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.6.1",
-<<<<<<< HEAD
-=======
-    "@stripe/react-stripe-js": "^3.6.0",
-    "@stripe/stripe-js": "^7.2.0",
->>>>>>> admin-dashboard-and-more
     "axios": "^1.7.9",
-    "chart.js": "^4.4.9",
-    "firebase": "^11.10.0",
     "flowbite-react": "^0.10.2",
     "react": "^19.0.0",
-    "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.0.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     "react-redux": "^9.2.0",
->>>>>>> 5846a438eb2ce1e664571b84ad40780c2cd0bee0
-=======
-    "react-redux": "^9.2.0",
->>>>>>> admin-dashboard-and-more
     "react-router-dom": "^7.1.5",
     "remixicon": "^4.6.0",
     "swiper": "^11.2.6"
