@@ -24,6 +24,7 @@ const productRoutes = require('../backend/src/products/roducts.route.js');
 const reviewRoutes = require('../backend/src/reviews/reviews.routes.js');
 const orderRoutes = require('../backend/src/order/order.route.js');
 const statsRoutes = require('../backend/src/stats/stats.routes.js');
+const connectCloudinary = require('../backend/src/config/cloudinary');
 
 
 app.use('/api/auth', authRoutes);

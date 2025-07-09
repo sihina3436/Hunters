@@ -12,7 +12,7 @@ const ReviewsCart = ({ ProductRevies }) => {
   const handleCloseReviewModal = () => setIsModelOpen(false);
 
   return (
-    <div className="my-10 p-6 bg-white rounded-2xl shadow-md">
+    <div className="my-8 p-6 bg-white rounded-2xl shadow-md">
       <div className="mb-8">
         {reviews.length > 0 ? (
           <>
@@ -35,6 +35,9 @@ const ReviewsCart = ({ ProductRevies }) => {
                         <RatingStars rating={review.rating} />
                       </div>
                       <p className="mt-4 text-gray-600">{review.comment}</p>
+                    </div>
+                    <div className="flex-1 md:w-1/3">
+                      {review.image && ( <img src={review.image} alt="Review" className="w-32 h-auto object-cover mt-2" />)}
                     </div>
                   </div>
                 </div>
