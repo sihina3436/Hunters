@@ -20,6 +20,8 @@ import Careers from '../components/Careers.jsx';
 import PrivacyPolicy from '../components/PrivacyPolicy.jsx';
 import FAQ from '../components/FAQ.jsx';
 import ShippingInfo from '../components/ShippingInfo.jsx';
+import AdminChat from '../pages/chat/AdminChat.jsx';
+import UserChat from '../pages/chat/UserChat.jsx';
 
 const Router = createBrowserRouter([
   {
@@ -49,8 +51,9 @@ const Router = createBrowserRouter([
       { path: 'payments', element: <div>User payments</div> },
       { path: 'profile', element: <div>User profile</div> },
       { path: 'reviews', element: <div>User reviews</div> },
+      { path: 'seller-support', element: <UserChat/> },
 
-      /* ---------- admin routes ---------- */
+      /* ---------- admin routes ---------- */ 
       {
         path: 'admin',
         element: (
@@ -98,7 +101,16 @@ const Router = createBrowserRouter([
             <div>manage-orders</div>
           </PrivateRoute>
         )
+      },
+       {
+        path: 'chat-inbox',
+        element: (
+          <PrivateRoute role="admin">
+            <AdminChat/>
+          </PrivateRoute>
+        )
       }
+
     ]
   },
   {

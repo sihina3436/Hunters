@@ -7,12 +7,13 @@ import { logout } from '../../redux/features/auth/authSlice'
 
 
 const navItems = [
-    { path: '/dashboard/admin', label: 'Dashboard' },
-    { path: '/dashboard/add-product', label: 'Add Product'  },
-    { path: '/dashboard/manage-products', label: 'Manage Products' },
-    { path: '/dashboard/users', label: 'Users'  },
-    { path: '/dashboard/manage-orders', label: 'Manage Orders'  },
-]
+  { path: '/dashboard/admin', label: 'Dashboard' },
+  { path: '/dashboard/add-product', label: 'Add Product' },
+  { path: '/dashboard/manage-products', label: 'Manage Products' },
+  { path: '/dashboard/users', label: 'Users' },
+  { path: '/dashboard/manage-orders', label: 'Manage Orders' },
+  { path: '/dashboard/chat-inbox', label: 'Inbox' }
+];
 
 
 
