@@ -20,6 +20,10 @@ const ReviewsSchema = new mongoose.Schema({
         ref: 'Product',
         required: true
     },
+    image: {
+        type: String,
+        required: false,
+    },
 }, {timestamps: true });
 
 const Reviews = mongoose.model('Reviews', ReviewsSchema);  
