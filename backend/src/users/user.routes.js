@@ -62,12 +62,7 @@ router.post("/login", async (req, res) => {
   });
 
 
-//   All users
-// router.get("/users",verifyToken, async(req,res) => {
-//     res.send({message:"Projected user"})
-// });
 
-// logout Endpoint
 router.post("/logout",(req,res) =>{
     res.clearCookie("token");
     res.status(200).json({ message: "Logout successful" });
@@ -143,4 +138,4 @@ router.patch("/edit-profile",async(req,res)=>{
 
 
 
-module.exports = router; 
+module.exports = router;
