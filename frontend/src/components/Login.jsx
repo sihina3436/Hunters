@@ -17,7 +17,11 @@ const Login = () => {
     e.preventDefault();
     const data = { email, password };
     
+<<<<<<< HEAD
     console.log("Sending request:", data); //  Debugging Log
+=======
+    console.log("Sending request:", data); // ✅ Debugging Log
+>>>>>>> admin-dashboard-and-more
 
     try {
       const response = await loginUser(data).unwrap();
@@ -25,7 +29,11 @@ const Login = () => {
       const {token,user} = response;
       dispatch(setUser({user})); // Store user in Redux state
       alert('Login successful!');
+<<<<<<< HEAD
       navigate('/'); //  Redirect to home after login
+=======
+      navigate('/'); // ✅ Redirect to home after login
+>>>>>>> admin-dashboard-and-more
     } catch (error) {
       console.error("Error:", error);
       setMessage(error?.data?.message || 'Please provide a valid email and password');
@@ -57,11 +65,19 @@ const Login = () => {
             required
             className="w-full bg-gray-100 focus:outline-none px-5 py-3"
           />
+<<<<<<< HEAD
           {message && <p className="text-primary">{message}</p>} {/* Display error message */}
 
           <button
             type="submit"
             className="w-full mt-5 bg-primary text-white hover:bg-primary-dark font-medium py-3 rounded-md"
+=======
+          {message && <p className="text-red-500">{message}</p>} {/* Display error message */}
+
+          <button
+            type="submit"
+            className="w-full mt-5 bg-primary text-white hover:bg-indigo-500 font-medium py-3 rounded-md"
+>>>>>>> admin-dashboard-and-more
           >
             Login
           </button>
@@ -69,7 +85,11 @@ const Login = () => {
 
         <p className="my-5 italic text-sm text-center">
           Don't have an account?
+<<<<<<< HEAD
           <Link to="/register" className="text-primary px-1 underline">
+=======
+          <Link to="/register" className="text-red-700 px-1 underline">
+>>>>>>> admin-dashboard-and-more
             Register
           </Link>{' '}
           here.

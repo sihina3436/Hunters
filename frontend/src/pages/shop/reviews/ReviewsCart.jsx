@@ -4,7 +4,10 @@ import { formatDate } from '../../../utils/formateDate';
 import RatingStars from '../../../components/RatingStars';
 import PostAReviews from './PostAReviews';
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> admin-dashboard-and-more
 const ReviewsCart = ({ ProductRevies }) => {
   const [isModelOpen, setIsModelOpen] = useState(false);
   const reviews = ProductRevies || [];

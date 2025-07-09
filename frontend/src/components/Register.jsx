@@ -48,16 +48,28 @@ const Register = () => {
                         className='w-full bg-gray-100 focus:outline-none px-5 py-3'
                     />
                     {
+<<<<<<< HEAD
                         message && <p className='text-primary'>{message}</p>
                     }
 
                     <button type='submit'
                         className='w-full mt-5 bg-primary text-white hover:bg-primary-dark font-medium py-3 rounded-md'
+=======
+                        message && <p className='text-red-500'>{message}</p>
+                    }
+
+                    <button type='submit'
+                        className='w-full mt-5 bg-primary text-white hover:bg-indigo-500 font-medium py-3 rounded-md'
+>>>>>>> admin-dashboard-and-more
                     >Register</button>
                 </form>
 
                 <p className='my-5 italic text-sm text-center'>Have an account? Please
+<<<<<<< HEAD
                     <Link to="/login" className='text-primary px-1 underline'>Login</Link>.
+=======
+                    <Link to="/login" className='text-red-700 px-1 underline'>Login</Link>.
+>>>>>>> admin-dashboard-and-more
                 </p>
             </div>
         </section>

@@ -5,8 +5,12 @@ import { useFetchProductByIdQuery } from '../../../redux/features/products/produ
 import RatingStars from '../../../components/RatingStars';
 import { addToCart } from '../../../redux/features/cart/CartReducer.js';
 import ReviewsCart from '../reviews/ReviewsCart.jsx';
+<<<<<<< HEAD
 
 
+=======
+import Spinner from '../../../components/Spinner.jsx';
+>>>>>>> admin-dashboard-and-more
 
 const SingleProducts = () => {
     const {id} = useParams();
@@ -24,7 +28,11 @@ const SingleProducts = () => {
 
 
     if(isLoading) {
+<<<<<<< HEAD
         return <div className='text-center text-2xl font-medium'>Loading...</div>
+=======
+        return <Spinner/>
+>>>>>>> admin-dashboard-and-more
     }
     if(error) {
         return <div className='text-center text-2xl font-medium'>Error loading Products details</div>
@@ -85,10 +93,16 @@ const SingleProducts = () => {
                 </div>
             </section>
 
+<<<<<<< HEAD
             <section className='max-w-[1400px] mx-auto px-4 py-20  mt-8'>
                     <ReviewsCart ProductRevies={ProductRevies}/>
             </section>            
           
+=======
+            <section className='section_container  mt-8'>
+                    <ReviewsCart ProductRevies={ProductRevies}/>
+            </section>
+>>>>>>> admin-dashboard-and-more
     </>
   )
 }

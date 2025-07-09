@@ -1,7 +1,11 @@
 import React from 'react';
 import OrderSummary from './OrderSummary';
 import { useDispatch } from 'react-redux';
+<<<<<<< HEAD
 import { removeFromCart, updateQuantity } from '../../redux/features/CartReducer';
+=======
+import { removeFromCart, updateQuantity } from '../../redux/features/cart/CartReducer.js';
+>>>>>>> admin-dashboard-and-more
 
 const Cart = ({ products, isOpen, onClose }) => {
   const dispatch = useDispatch();

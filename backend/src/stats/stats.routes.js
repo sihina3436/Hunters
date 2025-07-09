@@ -1,85 +1,110 @@
 const express = require('express');
+const User = require('../users/user.model');
 const router = express.Router();
-const Reviews = require('./reviews.model');
+// Assuming you have an Order model
+
 const Product = require('../products/products.model');
+const Order = require('../order/orders.model');
+const Reviews = require('../reviews/reviews.model');
 
-router.post('/post-review', async (req, res) => {
+
+
+// user stats by email
+
+router.get('/user-stats/:email', async (req, res) => {
+    const { email } = req.params;
+    if(!email) {
+        return res.status(400).json({ error: 'Email is required' });
+    }
     try {
-        const { comment, rating, productId, userId } = req.body;
-        if (!comment || !rating || !productId || !userId) {
-            return res.status(400).json({ message: "All fields are required" });
-        }
+        const user = await User.findOne({email:email});
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }   
+        // sum of all orders
+        const totalPaymentsResults = await Order.aggregate([
+            { $match: { email:email } },
+            { $group: { _id: null, totalAmounts: { $sum: '$amount' } } }
+        ]);
 
-        const existingReview = await Reviews.findOne({ userId, productId });
+        
+        const totalPaymentsAmounts = totalPaymentsResults.length > 0 ? totalPaymentsResults[0].totalAmounts : 0;
 
-        // update existing review if it exists
-        if (existingReview) {
-            existingReview.comment = comment;
-            existingReview.rating = rating;
-            await existingReview.save();
-        } else {
-            // create a new review if it doesn't exist
-            const newReview = new Reviews({
-                comment,
-                rating,
-                userId,
-                productId
-            });
-            await newReview.save();
-        }
+        // get total Reviews
+         const totalReviews = await Reviews.countDocuments({userId:user._id});
 
-        // Calculate the average rating for the product
-        const reviews = await Reviews.find({ productId });
-        if (reviews.length > 0) {
-            const totalRating = reviews.reduce((acc, review) => acc + review.rating, 0);
-            const averageRating = totalRating / reviews.length;
-            const product = await Product.findById(productId);
-            if (product) {
-                product.rating = averageRating;
-                await product.save({validateBeforeSave: false});
-            }else{
-                return res.status(404).json({ message: "Product not found" });
-            }
-        }
 
-        return res.status(200).json({ 
-            message: "Review posted successfully",
-            review: reviews
+         // total purchase product
+
+         const purchasedProducts = await Order.distinct('products.productId', { email:email });
+
+         const totalPurchasedProducts = purchasedProducts.length;
+
+        res.status(200).send({
+            totalPayments: totalPaymentsAmounts.toFixed(2),
+            totalReviews: totalReviews,
+            totalPurchasedProducts: totalPurchasedProducts,
+        });
+
+
+         console.log("Reviews Count "+totalReviews);
+        console.log("Total Amount is "+totalPaymentsAmounts);
+    } catch (error) {
+        console.error('Error fetching user stats:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+        
+    }
+});
+
+// admin stats
+
+router.get('/admin-stats', async (req,res) => {
+    try {
+        const totalOrders = await Order.countDocuments({});
+        const totalProducts = await Product.countDocuments({});
+        const totalUsers = await User.countDocuments({});
+        const totalReviews = await Reviews.countDocuments({});
+
+        const totalEarningsResults = await Order.aggregate([
+            { $group: { _id: null, totalEarnings: { $sum: '$amount' } } }
+        ]);
+        const totalEarnings = totalEarningsResults.length > 0 ? totalEarningsResults[0].totalEarnings : 0;
+
+        const monthlyEarningsResults = await Order.aggregate([
+            {
+                $group: {
+                    _id: { 
+                        month: { $month: "$createdAt" }, 
+                        year: { $year: "$createdAt" }
+                    },
+                    monthlyEarning: { $sum: '$amount' }
+                }
+            },
+            { 
+                $sort: { "_id.year": 1, "_id.month": 1 } 
+            } // Sort by year and month
+        ]);
+        
+
+        const monthlyEarnings = monthlyEarningsResults.map((item) => ({
+                month: item._id.month,
+                year: item._id.year,
+                earnings: item.monthlyEarning.toFixed(2),
+        }));
+
+        res.status(200).send({
+            totalOrders: totalOrders,
+            totalProducts: totalProducts,
+            totalUsers: totalUsers,
+            totalReviews: totalReviews,
+            totalEarnings: totalEarnings.toFixed(2),
+            monthlyEarnings: monthlyEarnings,
         });
 
     } catch (error) {
-        console.log("Error in posting review:", error);
-        res.status(500).json({ message: "Error in posting review" });
-    }
-});
-
-router.get('/total-reviews', async (req, res) => {
-    try {
-
-        const totalReviews = await Reviews.countDocuments({});
-        res.status(200).send({ totalReviews });
+        console.error('Error fetching admin stats:', error);
+        return res.status(500).json({ error: 'Error fetching admin stats' });
         
-    } catch (error) {
-        console.log("Error in getting reviews:", error);
-        res.status(500).json({ message: "Error in getting reviews count" });
-    }
-});
-
-
-router.get('/:userId',async (req, res) => {
-    const { userId } = req.params;
-    if (!userId) {
-        return res.status(400).json({ message: "User ID is required" });
-    }
-    try {
-        const reviews = await Reviews.find({userId: userId}).sort({createdAt : -1});
-        if(!reviews || reviews.length === 0) {
-            return res.status(404).json({ message: "No reviews found for this user" });
-        }
-        res.status(200).send({ reviews });
-    } catch (error) {
-        console.log("Error in getting reviews:", error);
-        res.status(500).json({ message: "Error in getting reviews" });
     }
 });
 
