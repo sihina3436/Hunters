@@ -12,6 +12,14 @@ import PrivateRoute from './PrivateRoute.jsx';
 import DashBoardLayout from '../pages/dashboard/DashBoardLayout.jsx';
 import UserDMain from '../pages/dashboard/user/dashboard/userDMain.jsx';
 import AdminDMain from '../pages/dashboard/admin/dashboard/AdminDMain.jsx';
+import About from '../components/About.jsx';
+import ContactUs from '../components/ContactUs.jsx';
+import Returns from '../components/Returns.jsx';
+import Refund from '../components/Refund.jsx';
+import Careers from '../components/Careers.jsx';
+import PrivacyPolicy from '../components/PrivacyPolicy.jsx';
+import FAQ from '../components/FAQ.jsx';
+import ShippingInfo from '../components/ShippingInfo.jsx';
 
 const Router = createBrowserRouter([
   {
@@ -92,7 +100,39 @@ const Router = createBrowserRouter([
         )
       }
     ]
-  }
+  },
+  {
+        path: "/about",
+        element: <About/>
+      },
+      {
+        path: "/contactus",
+        element: <ContactUs/>
+      },
+      {
+        path: "/returns",
+        element: <Returns/>
+      },
+      {
+        path: "/refund",
+        element: <Refund/>
+      },
+      {
+        path: "/careers",
+        element: <Careers/>
+      },
+      {
+        path: "/privacypolicy",
+        element: <PrivacyPolicy/>
+      },
+      {
+        path: "/faq",
+        element: <FAQ/>
+      },
+      {
+        path: "/shippinginfo",
+        element: <ShippingInfo/>
+      }
 ]);
 
 export default Router;

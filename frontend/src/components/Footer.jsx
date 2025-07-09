@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -8,15 +9,13 @@ const Footer = () => {
         {/* Left Section - Logo & Social Media */}
         <div className="flex flex-col items-start space-y-4">
           <div className="w-auto h-auto flex items-center justify-center text-text-dark text-2xl font-bold">
-          ZeroZcloths<span className="text-primary">.</span>
+          <Link to="/" className="text-2xl font-custom font-extrabold text-text-dark">ZeroZcloths<span className="text-primary">.</span></Link>
           </div>
           <p className="text-primary font-semibold text-lg">let's socialize</p>
           <div className="flex space-x-4 text-gray-600">
-            <i className="ri-instagram-line text-2xl hover:text-primary cursor-pointer"></i>
-            <i className="ri-facebook-fill text-2xl hover:text-primary cursor-pointer"></i>
-            <i className="ri-pinterest-line text-2xl hover:text-primary cursor-pointer"></i>
-            <i className="ri-youtube-line text-2xl hover:text-primary cursor-pointer"></i>
-            <i className="ri-tiktok-line text-2xl hover:text-primary cursor-pointer"></i>
+            <a href="https://www.instagram.com/zerozclothes?igsh=MTJuN2JrMGozMHk1eg==" target="_blank" rel="noopener noreferrer"><i className="ri-instagram-line text-2xl hover:text-primary cursor-pointer"></i></a>
+            <a href='https://www.facebook.com/profile.php?id=100057668610444' target="_blank" rel="noopener noreferrer"><i className="ri-facebook-fill text-2xl hover:text-primary cursor-pointer"></i></a>
+            <a href='https://www.tiktok.com/@zeroz141?_t=ZS-8xpVIg1fneM&_r=1' target="_blank" rel="noopener noreferrer"><i className="ri-tiktok-line text-2xl hover:text-primary cursor-pointer"></i></a>
           </div>
         </div>
 
@@ -25,21 +24,19 @@ const Footer = () => {
           <div>
             <h3 className="text-primary-dark font-semibold">HELP & SUPPORT</h3>
             <ul className="mt-2 space-y-1">
-              <li className="hover:text-primary cursor-pointer">Returns</li>
-              <li className="hover:text-primary cursor-pointer">Refund</li>
-              <li className="hover:text-primary cursor-pointer">Contact us</li>
-              <li className="hover:text-primary cursor-pointer">How To Order</li>
-              <li className="hover:text-primary cursor-pointer">How To Track</li>
-              <li className="hover:text-primary cursor-pointer">Shipping Info</li>
+              <li className="hover:text-primary cursor-pointer"><Link to = "/returns">Returns</Link></li>
+              <li className="hover:text-primary cursor-pointer"><Link to = "/refund">Refund</Link></li>
+              <li className="hover:text-primary cursor-pointer"><Link to = "/contactus">Contact us</Link></li>
+              <li className="hover:text-primary cursor-pointer"><Link to = "/faq">FAQ</Link></li>
+              <li className="hover:text-primary cursor-pointer"><Link to="/shippinginfo">Shipping Info</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="text-primary-dark font-semibold">COMPANY INFO</h3>
             <ul className="mt-2 space-y-1">
-              <li className="hover:text-primary cursor-pointer">About ZeroZclothes</li>
-              <li className="hover:text-primary cursor-pointer">Social Responsibility</li>
-              <li className="hover:text-primary cursor-pointer">Fashion Blogger</li>
-              <li className="hover:text-primary cursor-pointer">Careers</li>
+              <li className="hover:text-primary cursor-pointer"><Link to = "/about">About ZeroZclothes</Link> </li>
+              <li className="hover:text-primary cursor-pointer"><Link to = "/privacypolicy">Privacy Policy</Link></li>
+              <li className="hover:text-primary cursor-pointer"><Link to = "/careers">Careers </Link></li>
             </ul>
           </div>
         </div>
