@@ -22,6 +22,7 @@ import FAQ from '../components/FAQ.jsx';
 import ShippingInfo from '../components/ShippingInfo.jsx';
 import AdminChat from '../pages/chat/AdminChat.jsx';
 import UserChat from '../pages/chat/UserChat.jsx';
+import AddProduct from '../pages/dashboard/admin/addProduct/AddProduct.jsx';
 
 const Router = createBrowserRouter([
   {
@@ -66,7 +67,7 @@ const Router = createBrowserRouter([
         path: 'add-product',
         element: (
           <PrivateRoute role="admin">
-            <div>Add product</div>
+            <AddProduct/>
           </PrivateRoute>
         )
       },
