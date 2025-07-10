@@ -58,7 +58,7 @@ const TextInput = ({
             disabled && "bg-gray-100 text-gray-500 cursor-not-allowed",
             error
               ? "border-red-500 focus:border-red-500"
-              : "border-gray-300 focus:border-indigo-600"
+              : "border-gray-300 focus:border-primary"
           )}
         />
       </div>

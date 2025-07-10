@@ -23,6 +23,7 @@ import ShippingInfo from '../components/ShippingInfo.jsx';
 import AdminChat from '../pages/chat/AdminChat.jsx';
 import UserChat from '../pages/chat/UserChat.jsx';
 import AddProduct from '../pages/dashboard/admin/addProduct/AddProduct.jsx';
+import ManageProducts from '../pages/dashboard/admin/manageProduct/ManageProducts.jsx';
 
 const Router = createBrowserRouter([
   {
@@ -75,7 +76,7 @@ const Router = createBrowserRouter([
         path: 'manage-products',
         element: (
           <PrivateRoute role="admin">
-            <div>manage-products</div>
+            <ManageProducts/>
           </PrivateRoute>
         )
       },

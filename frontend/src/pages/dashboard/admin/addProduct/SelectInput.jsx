@@ -15,7 +15,7 @@ const SelectInput = ({ label, name, value, onChange, options }) => {
                 id={name}
                 value={value}
                 onChange={onChange}
-                className="add-product-InputCSS w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="add-product-InputCSS w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
             >
                 {options.map((option) => (
                     <option 
