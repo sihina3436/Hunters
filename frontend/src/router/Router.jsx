@@ -24,6 +24,7 @@ import AdminChat from '../pages/chat/AdminChat.jsx';
 import UserChat from '../pages/chat/UserChat.jsx';
 import AddProduct from '../pages/dashboard/admin/addProduct/AddProduct.jsx';
 import ManageProducts from '../pages/dashboard/admin/manageProduct/ManageProducts.jsx';
+import UpdateProduct from '../pages/dashboard/admin/manageProduct/UpdateProduct.jsx';
 
 const Router = createBrowserRouter([
   {
@@ -84,7 +85,7 @@ const Router = createBrowserRouter([
         path: 'update-products/:id',
         element: (
           <PrivateRoute role="admin">
-            <div>update-products/:id</div>
+            <UpdateProduct/>
           </PrivateRoute>
         )
       },
