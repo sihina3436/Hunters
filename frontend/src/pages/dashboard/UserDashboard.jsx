@@ -10,7 +10,7 @@ const navItems = [
   { path: '/dashboard/payments', label: 'Payments' },
   { path: '/dashboard/profile', label: 'Profile' },
   { path: '/dashboard/reviews', label: 'Reviews' },
-  { path: '/dashboard/Seller-Support', label: 'Seller Support' }
+  { path: '/dashboard/seller-support', label: 'Seller Support' }
 ]
 
 const UserDashboard = () => {

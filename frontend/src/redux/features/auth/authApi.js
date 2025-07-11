@@ -34,7 +34,7 @@ const authApi = createApi({
     getUser: builder.query({
       query: (loginUser) => ({
         url: '/users', // ✅ Prepend `/`
-        method: 'POST',
+        method: 'GET',
       }),
       refetchOnMount: true, // ✅ Refetch on mount
       invalidatesTags: ['Users'], // ✅ Invalidate tags
@@ -48,19 +48,22 @@ const authApi = createApi({
     updateUserRole: builder.mutation({
       query: ({ userId, role }) => ({
         url: `/users/${userId}`, // ✅ Prepend `/`
-        method: 'PATCH',
+        method: 'PUT',
         body: { role },
       }),
       refetchOnMount: true, // ✅ Refetch on mount
       invalidatesTags: ['Users'], // ✅ Invalidate tags
     }),
     editProfile: builder.mutation({
-      query: ({ profileData }) => ({
-        url: `/edit-profile/`, // ✅ Prepend `/`
-        method: 'PATCH',
-        body: profileData,
-      }),
-    })
+      query: (data) => ({
+    url: `/edit-profile`,
+    method: 'PATCH',
+    body: data,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }),
+})
 
   }),
 });

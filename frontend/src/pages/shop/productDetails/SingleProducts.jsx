@@ -33,7 +33,7 @@ const SingleProducts = () => {
     <>
         <section className='max-w-[1400px] m-auto  py-20 px-4 '>
         <h2 className="relative mb-4 text-[42px] font-semibold font-custom text-text-dark text-center after:content-[''] after:block after:w-28 after:h-1 after:bg-primary after:mx-auto after:mt-2">
-            Single Product Page
+          {singleProduct.name}
         </h2>
                 <div className='max-w-[500px] mx-auto text-text-light text-center space-x-2'>
                     <span className='hover:text-primary'><Link to="/">home</Link></span>

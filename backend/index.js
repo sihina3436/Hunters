@@ -24,7 +24,7 @@ const productRoutes = require('../backend/src/products/roducts.route.js');
 const reviewRoutes = require('../backend/src/reviews/reviews.routes.js');
 const orderRoutes = require('../backend/src/order/order.route.js');
 const statsRoutes = require('../backend/src/stats/stats.routes.js');
-const connectCloudinary = require('../backend/src/config/cloudinary');
+const uploadRoute = require("./src/utils/upload.js");
 
 
 app.use('/api/auth', authRoutes);
@@ -32,6 +32,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/stats', statsRoutes);
+app.use(uploadRoute); 
 
 mongoose.connect(process.env.DB_URL, {
   useNewUrlParser: true,

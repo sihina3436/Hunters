@@ -22,6 +22,11 @@ import FAQ from '../components/FAQ.jsx';
 import ShippingInfo from '../components/ShippingInfo.jsx';
 import AdminChat from '../pages/chat/AdminChat.jsx';
 import UserChat from '../pages/chat/UserChat.jsx';
+import AddProduct from '../pages/dashboard/admin/addProduct/AddProduct.jsx';
+import ManageProducts from '../pages/dashboard/admin/manageProduct/ManageProducts.jsx';
+import UpdateProduct from '../pages/dashboard/admin/manageProduct/UpdateProduct.jsx';
+import ManageUsers from '../pages/dashboard/admin/users/manageUsers.jsx';
+import UserProfile from '../pages/dashboard/user/profile/UserProfile.jsx';
 
 const Router = createBrowserRouter([
   {
@@ -49,7 +54,7 @@ const Router = createBrowserRouter([
       { path: '', element: <UserDMain /> },
       { path: 'orders', element: <div>User orders</div> },
       { path: 'payments', element: <div>User payments</div> },
-      { path: 'profile', element: <div>User profile</div> },
+      { path: 'profile', element: <UserProfile/> },
       { path: 'reviews', element: <div>User reviews</div> },
       { path: 'seller-support', element: <UserChat/> },
 
@@ -66,7 +71,7 @@ const Router = createBrowserRouter([
         path: 'add-product',
         element: (
           <PrivateRoute role="admin">
-            <div>Add product</div>
+            <AddProduct/>
           </PrivateRoute>
         )
       },
@@ -74,7 +79,7 @@ const Router = createBrowserRouter([
         path: 'manage-products',
         element: (
           <PrivateRoute role="admin">
-            <div>manage-products</div>
+            <ManageProducts/>
           </PrivateRoute>
         )
       },
@@ -82,7 +87,7 @@ const Router = createBrowserRouter([
         path: 'update-products/:id',
         element: (
           <PrivateRoute role="admin">
-            <div>update-products/:id</div>
+            <UpdateProduct/>
           </PrivateRoute>
         )
       },
@@ -90,7 +95,7 @@ const Router = createBrowserRouter([
         path: 'users',
         element: (
           <PrivateRoute role="admin">
-            <div>users</div>
+            <ManageUsers/>
           </PrivateRoute>
         )
       },
