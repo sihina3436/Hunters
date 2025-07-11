@@ -11,6 +11,7 @@ const userSchema = new Schema({
     profileImage: String,
     bio: { type: String, maxlength: 200 },
     profession: String,
+    
     createdAt: {
         type: Date,
         default: Date.now
