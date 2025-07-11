@@ -26,6 +26,7 @@ import AddProduct from '../pages/dashboard/admin/addProduct/AddProduct.jsx';
 import ManageProducts from '../pages/dashboard/admin/manageProduct/ManageProducts.jsx';
 import UpdateProduct from '../pages/dashboard/admin/manageProduct/UpdateProduct.jsx';
 import ManageUsers from '../pages/dashboard/admin/users/manageUsers.jsx';
+import UserProfile from '../pages/dashboard/user/profile/UserProfile.jsx';
 
 const Router = createBrowserRouter([
   {
@@ -53,7 +54,7 @@ const Router = createBrowserRouter([
       { path: '', element: <UserDMain /> },
       { path: 'orders', element: <div>User orders</div> },
       { path: 'payments', element: <div>User payments</div> },
-      { path: 'profile', element: <div>User profile</div> },
+      { path: 'profile', element: <UserProfile/> },
       { path: 'reviews', element: <div>User reviews</div> },
       { path: 'seller-support', element: <UserChat/> },
 

@@ -55,12 +55,15 @@ const authApi = createApi({
       invalidatesTags: ['Users'], // ✅ Invalidate tags
     }),
     editProfile: builder.mutation({
-      query: ({ profileData }) => ({
-        url: `/edit-profile/`, // ✅ Prepend `/`
-        method: 'PATCH',
-        body: profileData,
-      }),
-    })
+      query: (data) => ({
+    url: `/edit-profile`,
+    method: 'PATCH',
+    body: data,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }),
+})
 
   }),
 });
