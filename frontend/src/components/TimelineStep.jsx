@@ -1,16 +1,36 @@
 import React from 'react';
 
 const TimelineStep = ({ step, order, isCompleted, isCurrent, isLastStep, icon, description }) => {
-  const iconBgColor = isCompleted || isCurrent ? `bg-${icon.bgColor}` : 'bg-gray-200';
-  const iconTextColor = isCompleted || isCurrent ? 'text-white' : `text-${icon.textColor}`;
+  const isActive = isCompleted || isCurrent;
+
+  // Define background colors
+  let bgColorClass = 'bg-gray-200';
+  let textColorClass = 'text-gray-500';
+
+  if (isActive) {
+    if (icon.bgColor === 'red-500') {
+      bgColorClass = 'bg-red-500';
+      textColorClass = 'text-white';
+    } else if (icon.bgColor === 'yellow-800') {
+      bgColorClass = 'bg-yellow-800';
+      textColorClass = 'text-white';
+    } else if (icon.bgColor === 'blue-800') {
+      bgColorClass = 'bg-blue-800';
+      textColorClass = 'text-white';
+    } else if (icon.bgColor === 'green-800') {
+      bgColorClass = 'bg-green-800';
+      textColorClass = 'text-white';
+    }
+  }
+
   const connectorColor = isCompleted ? 'bg-blue-500' : 'bg-gray-300';
-  const labelTextColor = isCompleted || isCurrent ? 'text-gray-900' : 'text-gray-500';
-  const descriptionTextColor = isCompleted || isCurrent ? 'text-gray-700' : 'text-gray-400';
+  const labelTextColor = isActive ? 'text-gray-900' : 'text-gray-500';
+  const descriptionTextColor = isActive ? 'text-gray-700' : 'text-gray-400';
 
   return (
     <li className="relative mb-10 sm:mb-0 flex-1">
       <div className="flex items-center">
-        <div className={`z-10 w-10 h-10 flex items-center justify-center ${iconBgColor} ${iconTextColor} rounded-full shadow-md transition-all duration-300`}>
+        <div className={`z-10 w-10 h-10 flex items-center justify-center ${bgColorClass} ${textColorClass} rounded-full shadow-md transition-all duration-300`}>
           <i className={`ri-${icon.iconName} text-xl`}></i>
         </div>
         {!isLastStep && (
