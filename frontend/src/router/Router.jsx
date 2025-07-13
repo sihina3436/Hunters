@@ -27,6 +27,7 @@ import ManageProducts from '../pages/dashboard/admin/manageProduct/ManageProduct
 import UpdateProduct from '../pages/dashboard/admin/manageProduct/UpdateProduct.jsx';
 import ManageUsers from '../pages/dashboard/admin/users/manageUsers.jsx';
 import UserProfile from '../pages/dashboard/user/profile/UserProfile.jsx';
+import UserOrder from '../pages/dashboard/user/orders/UserOrder.jsx';
 
 const Router = createBrowserRouter([
   {
@@ -52,7 +53,7 @@ const Router = createBrowserRouter([
     children: [
       /* ---------- user routes ---------- */
       { path: '', element: <UserDMain /> },
-      { path: 'orders', element: <div>User orders</div> },
+      { path: 'orders', element: <UserOrder/> },
       { path: 'payments', element: <div>User payments</div> },
       { path: 'profile', element: <UserProfile/> },
       { path: 'reviews', element: <div>User reviews</div> },
