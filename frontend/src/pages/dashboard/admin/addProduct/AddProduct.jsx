@@ -6,6 +6,7 @@ import SelectInput from "./SelectInput";
 import UploadImage from "./UploadImage";
 import { useAddProductMutation } from "../../../../redux/features/products/productsApi";
 
+
 // ─────────────────────────────────  constants
 const categories = [
   { label: "All", value: "all" },
@@ -127,6 +128,7 @@ const AddProduct = () => {
 
         {/* 🔹 Pass the setter **directly** – UploadImage will give us a plain URL string */}
         <UploadImage name="image" setImage={setImage} />
+        
 
         <div>
           <label

@@ -28,6 +28,7 @@ import UpdateProduct from '../pages/dashboard/admin/manageProduct/UpdateProduct.
 import ManageUsers from '../pages/dashboard/admin/users/manageUsers.jsx';
 import UserProfile from '../pages/dashboard/user/profile/UserProfile.jsx';
 import UserOrder from '../pages/dashboard/user/orders/UserOrder.jsx';
+import OrderDetails from '../pages/dashboard/user/orders/OrderDetails.jsx';
 
 const Router = createBrowserRouter([
   {
@@ -38,7 +39,8 @@ const Router = createBrowserRouter([
       { path: '/shop', element: <ShopPage /> },
       { path: '/search', element: <Search /> },
       { path: '/shop/:id', element: <SingleProducts /> },
-      { path: '/success', element: <PaymentSuccess /> }
+      { path: '/success', element: <PaymentSuccess /> },
+      {path: '/orders/:orderId', element: <OrderDetails/>},
     ]
   },
   { path: '/login', element: <Login /> },

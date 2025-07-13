@@ -85,7 +85,7 @@ router.delete("/users/:id", async (req, res) => {
 // Get All Users
 router.get("/users", async (req, res) => {
   try {
-    const users = await User.find({}, 'id email role').sort({ createdAt: -1 });
+    const users = await User.find({}, 'id email role username').sort({ createdAt: -1 });
     if (!users) {
       return res.status(404).json({ message: "No users found" });
     }

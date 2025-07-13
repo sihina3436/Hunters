@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import ChatBox from '../../features/chat/ChatBox';
+
 const UserChat = () => {
    const user = useSelector((state) => state.auth.user);
   const currentUserId = `user_${user._id}`;
   const adminId = '68132d81d2cff31598b17d46'; // Set this statically
-
   return (
     <div className="p-4">
       <h2 className="text-xl font-bold mb-4">Chat with Seller</h2>

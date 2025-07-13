@@ -17,6 +17,7 @@ export default {
       'text-light': '#64748b',
       'extra-light': '#f8fafc'
     },
+    
     fontFamily: {
       custom: ['Roboto', 'sans-serif'],  // Replace 'Roboto' with your font name
     },},

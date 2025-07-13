@@ -1,3 +1,4 @@
+// src/features/chat/ChatBox.js
 import React, { useEffect, useRef, useState } from 'react';
 import { db } from './firebase';
 import {
@@ -8,6 +9,7 @@ import {
   onSnapshot,
   addDoc,
   serverTimestamp,
+  writeBatch,
 } from 'firebase/firestore';
 import Message from './Message';
 
@@ -28,19 +30,28 @@ const ChatBox = ({ currentUserId, recipientId }) => {
       orderBy('timestamp')
     );
 
-    const unsub = onSnapshot(q, (querySnapshot) => {
-      console.log('Messages updated:', querySnapshot.docs.length);
+    const unsub = onSnapshot(q, async (querySnapshot) => {
       const msgs = querySnapshot.docs
         .map((doc) => ({ id: doc.id, ...doc.data() }))
-        .filter((msg) => msg.timestamp); 
+        .filter((msg) => msg.timestamp);
+
       setMessages(msgs);
+
+      // ✅ Mark unread messages as read
+      const batch = writeBatch(db);
+      querySnapshot.docs.forEach((doc) => {
+        const data = doc.data();
+        if (data.recipientId === currentUserId && !data.isRead) {
+          batch.update(doc.ref, { isRead: true });
+        }
+      });
+      await batch.commit();
     });
 
     return () => unsub();
   }, [currentUserId, recipientId]);
 
   useEffect(() => {
-    // auto-scroll to bottom when messages update
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
@@ -57,6 +68,7 @@ const ChatBox = ({ currentUserId, recipientId }) => {
       recipientId,
       text: newMsg.trim(),
       timestamp: serverTimestamp(),
+      isRead: false, // ✅
     });
 
     setNewMsg('');
