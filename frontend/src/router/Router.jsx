@@ -29,6 +29,9 @@ import ManageUsers from '../pages/dashboard/admin/users/manageUsers.jsx';
 import UserProfile from '../pages/dashboard/user/profile/UserProfile.jsx';
 import UserOrder from '../pages/dashboard/user/orders/UserOrder.jsx';
 import OrderDetails from '../pages/dashboard/user/orders/OrderDetails.jsx';
+import ManageOrder from '../pages/dashboard/admin/ManageOrders/ManageOrder.jsx';
+import ViewOrder from '../pages/dashboard/admin/ManageOrders/ViewOrder.jsx';
+
 
 const Router = createBrowserRouter([
   {
@@ -106,7 +109,7 @@ const Router = createBrowserRouter([
         path: 'manage-orders',
         element: (
           <PrivateRoute role="admin">
-            <div>manage-orders</div>
+            <ManageOrder/>
           </PrivateRoute>
         )
       },
@@ -115,6 +118,14 @@ const Router = createBrowserRouter([
         element: (
           <PrivateRoute role="admin">
             <AdminChat/>
+          </PrivateRoute>
+        )
+      },
+        {
+        path: 'admin/orders/:orderId',
+        element: (
+          <PrivateRoute role="admin">
+            <ViewOrder/>
           </PrivateRoute>
         )
       }

@@ -32,14 +32,14 @@ const orderApi = createApi({
             ),
             providesTags: ['Order']
         }),
-        updateOrderStatus: builder.mutation({
-            query: ({id, status}) => ({
-                url: `/update-order-status/${id}`,
-                method: 'PATCH',
-                body: { status },
-            }),
-            invalidatesTags: ['Order']
-        }),
+       updateOrderStatus: builder.mutation({
+  query: ({ id, status }) => ({
+    url: `/update-order-status/${id}`,
+    method: 'PATCH',
+    body: { status },
+  }),
+  invalidatesTags: ['Order'],
+}),
         deleteOrder: builder.mutation({
             query: (id) => ({
                 url: `/delete-order/${id}`,
@@ -47,6 +47,7 @@ const orderApi = createApi({
             }),
             invalidatesTags: ['Order']
         })
+       
     })
 })
 
