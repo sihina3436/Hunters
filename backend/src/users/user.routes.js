@@ -85,7 +85,7 @@ router.delete("/users/:id", async (req, res) => {
 // Get All Users
 router.get("/users", async (req, res) => {
   try {
-    const users = await User.find({}, 'id email role username').sort({ createdAt: -1 });
+    const users = await User.find({}, 'id email role username address').sort({ createdAt: -1 });
     if (!users) {
       return res.status(404).json({ message: "No users found" });
     }
@@ -158,6 +158,32 @@ router.patch("/edit-profile", async (req, res) => {
     console.error("Error updating user profile:", error);
     res.status(500).json({ message: "Error updating user profile" });
     console.log("Updating user profile with:", req.body);
+  }
+});
+
+// Get User by Email
+router.get("/user-by-email/:email", async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+      profileImage: user.profileImage,
+      bio: user.bio,
+      profession: user.profession,
+      address: user.address,
+    });
+  } catch (error) {
+    console.error("Error fetching user by email:", error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 

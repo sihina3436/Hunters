@@ -54,6 +54,7 @@ const authApi = createApi({
       refetchOnMount: true, // ✅ Refetch on mount
       invalidatesTags: ['Users'], // ✅ Invalidate tags
     }),
+
     editProfile: builder.mutation({
       query: (data) => ({
     url: `/edit-profile`,
@@ -63,10 +64,18 @@ const authApi = createApi({
       'Content-Type': 'application/json'
     }
   }),
-})
+}),
+  getUserByEmail: builder.query({
+    query: (email) => ({
+      url: `/user-by-email/${encodeURIComponent(email)}`, 
+      method: 'GET',
+    }),
+    providesTags: ['Users'], 
+  }),
+
 
   }),
 });
 
-export const { useRegisterUserMutation, useLoginUserMutation, useLogoutUserMutation, useGetUserQuery, useDeleteUserMutation, useUpdateUserRoleMutation, useEditProfileMutation } = authApi;
+export const { useRegisterUserMutation, useLoginUserMutation, useLogoutUserMutation, useGetUserQuery, useDeleteUserMutation, useUpdateUserRoleMutation, useEditProfileMutation, useGetUserByEmailQuery } = authApi;
 export default authApi;

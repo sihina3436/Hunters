@@ -1,158 +1,140 @@
-import React from 'react'
-import { useState } from 'react'
-import { useDeleteProductMutation, useFetchAllProductsQuery } from '../../../../redux/features/products/productsApi'
+import React, { useState } from 'react';
+import { useDeleteProductMutation, useFetchAllProductsQuery } from '../../../../redux/features/products/productsApi';
 import Spinner from '../../../../components/Spinner';
 import { formatDate } from '../../../../utils/formateDate';
 import { Link } from 'react-router-dom';
 
 const ManageProducts = () => {
-    const [currentPage, setCurrentPage] =useState(1);
-    const [productsPerPage] = useState(12);
-    const {data :{products=[], totalPages, totalProducts } ={},isLoading, error, refetch} = useFetchAllProductsQuery({
-        category : '',
-        color : '',
-        minPrice:"" ,
-        maxPrice:"",
-        page: currentPage,
-        limit: productsPerPage,
-        
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(12);
+  const { data: { products = [], totalPages, totalProducts } = {}, isLoading, error, refetch } =
+    useFetchAllProductsQuery({
+      category: '',
+      color: '',
+      minPrice: '',
+      maxPrice: '',
+      page: currentPage,
+      limit: productsPerPage,
     });
 
-    const startProduct = (currentPage - 1) * productsPerPage + 1;
-    const endProduct = startProduct + products.length - 1;
-    const handlePageChange = (page) => {
-        if(page > 0 && page <= totalPages) {
-            setCurrentPage(page);
-        }
+  const startProduct = (currentPage - 1) * productsPerPage + 1;
+  const endProduct = startProduct + products.length - 1;
+
+  const [deleteProduct] = useDeleteProductMutation();
+
+  const handlePageChange = (page) => {
+    if (page > 0 && page <= totalPages) {
+      setCurrentPage(page);
     }
-    
-    const [deleteProduct] = useDeleteProductMutation();
-    const handleDeleteProduct = async (productId) => {
-        try {
-            const responce = await deleteProduct(productId).unwrap();
-            alert("Product deleted successfully");
-            await refetch(); // Refetch products after deletion
-        } catch (error) {
-            console.error("Error deleting product:", error);
-            
-        }
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this product?');
+    if (!confirmDelete) return;
+
+    try {
+      await deleteProduct(productId).unwrap();
+      alert('Product deleted successfully');
+      await refetch();
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      alert('Failed to delete product');
     }
+  };
 
   return (
     <>
-    {
-        isLoading && <Spinner/>
-    }
-    {
-        error && <div classNameName='text-red-500 text-center'>Error Loading Product</div>
-    }
-    <section className="py-1 bg-blueGray-50">
-<div className="w-full  mb-12 xl:mb-0 px-4 mx-auto">
-  <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
-    <div className="rounded-t mb-0 px-4 py-3 border-0">
-      <div className="flex flex-wrap items-center">
-        <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-          <h3 className="font-semibold text-base text-blueGray-700">All Products</h3>
+      {isLoading && <Spinner />}
+      {error && (
+        <div className="text-red-500 text-center py-8">
+          <i className="ri-error-warning-line text-3xl mb-2 block"></i>
+          Failed to load products.
         </div>
-        {/* <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-          <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">See all</button>
-        </div> */}
-      </div>
-      <h3 className='my-4 text-sm'>Showing {startProduct} to {endProduct} of {totalProducts} products</h3>
-    </div>
+      )}
 
-    <div className="block w-full overflow-x-auto">
-      <table className="items-center bg-transparent w-full border-collapse ">
-        <thead>
-          <tr>
-            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          No
-                        </th>
-          <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                         Product Name
-                        </th>
-           <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Publish Date
-                        </th>
-          <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Edit or Manage
-                        </th>
-           <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                          Actions
-                        </th>             
-          </tr>
-        </thead>
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold"><i class="ri-handbag-line text-primary text-2xl"></i>Manage Products</h2>
+          <p className="text-sm text-gray-500">
+            Showing {startProduct} to {endProduct} of {totalProducts} products
+          </p>
+        </div>
 
-        <tbody>
-            {
-                products && products.map((product, index) => (
-                    <tr>
-                        <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-left text-blueGray-700 font-semibold">
-                        {index+1}
-                        </th>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 font-semibold">
-                        {product.name}
-                        </td>
-                        <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
-                       {formatDate(product.createdAt)}
-                        </td>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
-                            <Link to={`/dashboard/update-products/${product._id}`}>
-                                <button
-                                    type="button"
-                                    className="inline-flex items-center gap-2 rounded-lg border border-primary bg-white px-4 py-2 text-sm font-medium text-primary transition hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                                    <i className="ri-edit-2-line text-base"></i>
-                                    Edit
-                                </button>
-                            </Link>
-                        </td>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                            <button
-                                type="button"
-                                onClick={() => handleDeleteProduct(product._id)}
-                                className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-red-500">
-                                <i className="ri-delete-bin-6-line text-base"></i>
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-            ))
-            }
-       
-        </tbody>
+        <div className="overflow-x-auto rounded-lg shadow border border-gray-200">
+          <table className="min-w-full bg-white">
+            <thead className="bg-gray-100 text-gray-600 text-sm">
+              <tr>
+                <th className="text-left px-6 py-3">No</th>
+                <th className="text-left px-6 py-3">Product Name</th>
+                <th className="text-left px-6 py-3">Publish Date</th>
+                <th className="text-left px-6 py-3">Manage</th>
+                <th className="text-left px-6 py-3">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="text-gray-700 text-sm">
+              {products?.map((product, index) => (
+                <tr key={product._id} className="border-t hover:bg-gray-50">
+                  <td className="px-6 py-4">{index + 1}</td>
+                  <td className="px-6 py-4 font-medium">{product.name}</td>
+                  <td className="px-6 py-4">{formatDate(product.createdAt)}</td>
+                  <td className="px-6 py-4">
+                    <Link to={`/dashboard/update-products/${product._id}`}>
+                      <button className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm text-primary border border-primary hover:bg-blue-50 transition">
+                        <i className="ri-edit-line"></i>
+                        Edit
+                      </button>
+                    </Link>
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      onClick={() => handleDeleteProduct(product._id)}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm text-white bg-primary hover:bg-primary-dark transition"
+                    >
+                      <i className="ri-delete-bin-line"></i>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-      </table>
-    </div>
-  </div>
-</div>
-
-{/* pagination */}
-<div className='flex justify-center items-center mt-6'>
-    <button  disabled={currentPage == 1} onClick={() => handlePageChange (currentPage -1)} className='px-4 py-2 bg-gray-300 text-gray-700 rounded-md mx-1'>Previous</button>
-    {
-        [...Array(totalPages)].map((_, index) => (
+        {/* Pagination */}
+        <div className="flex justify-center mt-8 gap-2">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+            className="px-4 py-2 text-sm bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
+          >
+            <i className="ri-arrow-left-s-line"></i> Prev
+          </button>
+          {[...Array(totalPages)].map((_, index) => (
             <button
-            onClick={() => handlePageChange(index + 1)}
-            className={`px-4 py-2 ${currentPage === index + 1 ? 'bg-primary text-white' : 'bg-gray-300 text-gray-700' } rounded-md mx-1 `}>{index + 1}</button>
-        ))
-    }
-    <button disabled={currentPage == totalPages}  onClick={() => handlePageChange (currentPage + 1)}className='px-4 py-2 bg-gray-300 text-gray-700 rounded-md mx-1'>Next</button>
-</div>
-
-<footer className="relative pt-8 pb-6 mt-16">
-  <div className="container mx-auto px-4">
-    <div className="flex flex-wrap items-center md:justify-between justify-center">
-      <div className="w-full md:w-6/12 px-4 mx-auto text-center">
-        <div className="text-sm text-blueGray-500 font-semibold py-1">
-          Made with ZeroZCloths.
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={`px-4 py-2 text-sm rounded ${
+                currentPage === index + 1
+                  ? 'bg-primary text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => handlePageChange(currentPage + 1)}
+            className="px-4 py-2 text-sm bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
+          >
+            Next <i className="ri-arrow-right-s-line"></i>
+          </button>
         </div>
       </div>
-    </div>
-  </div>
-</footer>
-</section>
-    </>
-  )
-}
 
-export default ManageProducts
+   
+    </>
+  );
+};
+
+export default ManageProducts;

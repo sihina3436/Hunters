@@ -131,9 +131,47 @@ router.get("/", async (req, res) => {
 });
 
 // update order status
+// router.patch("/update-order-status/:id", async (req, res) => {
+//   const { id } = req.params;
+//   const { status } = req.body;
+//   if (!status) {
+//     return res.status(400).send({ message: "Status is required" });
+//   }
+
+//   try {
+//     const updatedOrder = await Order.findByIdAndUpdate(
+//       id,
+//       {
+//         status,
+//         updatedAt: new Date(),
+//       },
+//       {
+//         new: true,
+//         runValidators: true,
+//       }
+//     );
+
+//     if(!updatedOrder) {
+//       return res.status(404).send({ message: "Order not found" });
+//     }
+
+//     res.status(200).json({
+//       message: "Order status updated successfully",
+//       order: updatedOrder
+//     })
+
+//   } catch (error) {
+//     console.error("Error updating order status", error);
+//     res.status(500).send({ message: "Failed to update order status" });
+//   }
+// });
+
 router.patch("/update-order-status/:id", async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
+
+  console.log("Updating order:", id, "->", status);
+
   if (!status) {
     return res.status(400).send({ message: "Status is required" });
   }
@@ -151,17 +189,17 @@ router.patch("/update-order-status/:id", async (req, res) => {
       }
     );
 
-    if(!updatedOrder) {
+    if (!updatedOrder) {
       return res.status(404).send({ message: "Order not found" });
     }
 
     res.status(200).json({
       message: "Order status updated successfully",
       order: updatedOrder
-    })
+    });
 
   } catch (error) {
-    console.error("Error updating order status", error);
+    console.error("Error updating order status:", error);
     res.status(500).send({ message: "Failed to update order status" });
   }
 });
