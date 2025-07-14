@@ -96,7 +96,6 @@ Status: <span className="font-medium">{order?.status}</span>
   </ol>
 
   {/* Show Invoice Button */}
-  {order.status === 'pending' && (
     <div className="text-center mt-10">
       <button
         onClick={() => setShowInvoice((prev) => !prev)}
@@ -105,7 +104,6 @@ Status: <span className="font-medium">{order?.status}</span>
         View Invoice
       </button>
     </div>
-  )}
 
   {/* Invoice Display */}
   {showInvoice && (

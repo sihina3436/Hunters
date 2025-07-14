@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useGetOrderByIdQuery } from '../../../../redux/features/order/orderApi';
 import { useParams } from 'react-router-dom';
 import TimelineStep from '../../../../components/TimelineStep';
+import Invoice from '../../../../components/Invoice';
 
 const OrderDetails = () => {
     const {user} = useSelector((state) => state.auth);
     const {orderId} = useParams();
     const { data: order, error, isLoading } = useGetOrderByIdQuery(orderId);
+    const [showInvoice, setShowInvoice] = useState(false);
+
 
     console.log(order);
 
@@ -71,6 +74,26 @@ const OrderDetails = () => {
         />
       ))}
     </ol>
+
+    {/* Show Invoice Button */}
+
+  <div className="text-center mt-10">
+    <button
+      onClick={() => setShowInvoice((prev) => !prev)}
+      className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition"
+    >
+      {showInvoice ? 'Hide Invoice' : 'View Invoice'}
+    </button>
+  </div>
+
+
+{/* Invoice Display */}
+{showInvoice && (
+  <div className="mt-10 max-w-4xl mx-auto">
+    <Invoice order={order} />
+  </div>
+)}
+
   </section>
   )
 }
