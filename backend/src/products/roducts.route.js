@@ -11,7 +11,6 @@ router.post('/create-product', async (req, res) => {
     try {
         const newProduct = new Product({...req.body});
         const savedProduct = await newProduct.save();
-        // calculate revies
         const revies = await Reviews.find({ productId: savedProduct._id });
         if(revies.length > 0) {
             const totalRating = revies.reduce((acc, review) => acc + review.rating, 0);

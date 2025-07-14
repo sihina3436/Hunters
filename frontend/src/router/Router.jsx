@@ -31,6 +31,7 @@ import UserOrder from '../pages/dashboard/user/orders/UserOrder.jsx';
 import OrderDetails from '../pages/dashboard/user/orders/OrderDetails.jsx';
 import ManageOrder from '../pages/dashboard/admin/ManageOrders/ManageOrder.jsx';
 import ViewOrder from '../pages/dashboard/admin/ManageOrders/ViewOrder.jsx';
+import ViewContacts from '../pages/dashboard/admin/contact/ViewContacts.jsx';
 
 
 const Router = createBrowserRouter([
@@ -124,6 +125,14 @@ const Router = createBrowserRouter([
         element: (
           <PrivateRoute role="admin">
             <ViewOrder/>
+          </PrivateRoute>
+        )
+      },
+        {
+        path: 'view-contacts',
+        element: (
+          <PrivateRoute role="admin">
+            <ViewContacts/>
           </PrivateRoute>
         )
       }

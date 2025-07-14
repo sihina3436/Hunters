@@ -9,7 +9,7 @@ const productSchema = new mongoose.Schema({
     image: String,
     color: String,
     rating: { type: Number, default: 0 },
-    sizes: { type: [String], default: [] }, // ✅ Added sizes
+    sizes: { type: [String], default: [] }, 
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

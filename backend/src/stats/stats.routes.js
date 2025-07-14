@@ -1,8 +1,6 @@
 const express = require('express');
 const User = require('../users/user.model');
 const router = express.Router();
-// Assuming you have an Order model
-
 const Product = require('../products/products.model');
 const Order = require('../order/orders.model');
 const Reviews = require('../reviews/reviews.model');
@@ -10,7 +8,6 @@ const Reviews = require('../reviews/reviews.model');
 
 
 // user stats by email
-
 router.get('/user-stats/:email', async (req, res) => {
     const { email } = req.params;
     if(!email) {
@@ -21,7 +18,7 @@ router.get('/user-stats/:email', async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }   
-        // sum of all orders
+ 
         const totalPaymentsResults = await Order.aggregate([
             { $match: { email:email } },
             { $group: { _id: null, totalAmounts: { $sum: '$amount' } } }
@@ -30,11 +27,11 @@ router.get('/user-stats/:email', async (req, res) => {
         
         const totalPaymentsAmounts = totalPaymentsResults.length > 0 ? totalPaymentsResults[0].totalAmounts : 0;
 
-        // get total Reviews
+  
          const totalReviews = await Reviews.countDocuments({userId:user._id});
 
 
-         // total purchase product
+      
 
          const purchasedProducts = await Order.distinct('products.productId', { email:email });
 

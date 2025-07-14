@@ -12,7 +12,7 @@ router.post('/create-checkout-session', async (req, res) => {
       price_data: {
         currency: 'lkr',
         product_data: {
-          name: `${product.name} (${product.size || "No Size"})`, // ✅ include size in Stripe name
+          name: `${product.name} (${product.size || "No Size"})`, 
           images: [product.image],
         },
         unit_amount: Math.round(product.price * 100),
@@ -53,7 +53,7 @@ router.post('/confirm-payment', async (req, res) => {
         productId: products[i]?._id || 'unknown_product_id',
         quantity: item.quantity,
         price: item.price.unit_amount / 100,
-        size: products[i]?.size || 'N/A', // ✅ include size
+        size: products[i]?.size || 'N/A', 
       }));
 
       const amount = session.amount_total / 100;

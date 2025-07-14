@@ -3,7 +3,7 @@ import React from 'react';
 const TimelineStep = ({ step, order, isCompleted, isCurrent, isLastStep, icon, description }) => {
   const isActive = isCompleted || isCurrent;
 
-  // Define background colors
+
   let bgColorClass = 'bg-gray-200';
   let textColorClass = 'text-gray-500';
 

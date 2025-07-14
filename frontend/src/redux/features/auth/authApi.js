@@ -4,25 +4,25 @@ import { getBaseURL } from '../../../utils/baseURL';
 const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: `${getBaseURL()}/api/auth`, // ✅ No trailing slash
-    credentials: 'include',  // ✅ Fix case sensitivity
+    baseUrl: `${getBaseURL()}/api/auth`, 
+    credentials: 'include',  
   }),
-  tagTypes: ['Users'], // ✅ Define tag types
+  tagTypes: ['Users'], 
   endpoints: (builder) => ({
     registerUser: builder.mutation({
       query: (newUser) => ({
-        url: '/register', // ✅ Prepend `/`
+        url: '/register', 
         method: 'POST',
         body: newUser,
-        headers: { 'Content-Type': 'application/json' }, // ✅ Ensure JSON format
+        headers: { 'Content-Type': 'application/json' }, 
       }),
     }),
     loginUser: builder.mutation({
       query: (loginUser) => ({
-        url: '/login', // ✅ Prepend `/`
+        url: '/login', 
         method: 'POST',
         body: loginUser,
-        headers: { 'Content-Type': 'application/json' }, // ✅ Ensure JSON format
+        headers: { 'Content-Type': 'application/json' }, 
       }),
     }),
     logoutUser: builder.mutation({
@@ -33,26 +33,26 @@ const authApi = createApi({
     }),
     getUser: builder.query({
       query: (loginUser) => ({
-        url: '/users', // ✅ Prepend `/`
+        url: '/users', 
         method: 'GET',
       }),
-      refetchOnMount: true, // ✅ Refetch on mount
-      invalidatesTags: ['Users'], // ✅ Invalidate tags
+      refetchOnMount: true, 
+      invalidatesTags: ['Users'], 
     }),
     deleteUser: builder.mutation({
       query: (userId) => ({
-        url: `/users/${userId}`, // ✅ Prepend `/`
+        url: `/users/${userId}`, 
         method: 'DELETE',
       }),
     }),
     updateUserRole: builder.mutation({
       query: ({ userId, role }) => ({
-        url: `/users/${userId}`, // ✅ Prepend `/`
+        url: `/users/${userId}`, 
         method: 'PUT',
         body: { role },
       }),
-      refetchOnMount: true, // ✅ Refetch on mount
-      invalidatesTags: ['Users'], // ✅ Invalidate tags
+      refetchOnMount: true, 
+      invalidatesTags: ['Users'], 
     }),
 
     editProfile: builder.mutation({

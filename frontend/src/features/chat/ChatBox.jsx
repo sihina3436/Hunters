@@ -37,7 +37,7 @@ const ChatBox = ({ currentUserId, recipientId }) => {
 
       setMessages(msgs);
 
-      // ✅ Mark unread messages as read
+      
       const batch = writeBatch(db);
       querySnapshot.docs.forEach((doc) => {
         const data = doc.data();
@@ -68,7 +68,7 @@ const ChatBox = ({ currentUserId, recipientId }) => {
       recipientId,
       text: newMsg.trim(),
       timestamp: serverTimestamp(),
-      isRead: false, // ✅
+      isRead: false, 
     });
 
     setNewMsg('');

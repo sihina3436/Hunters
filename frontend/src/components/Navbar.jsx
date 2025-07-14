@@ -106,7 +106,7 @@ const Navbar = () => {
             {user && user ? (
               <>
                 <img
-                  src={user?.profileImage || userImg}
+                  src={user?.userImg?.trim() ? user.image : userImg}
                   alt={user.username}
                   className="size-10 rounded-full cursor-pointer"
                   onClick={handleDropdownToggle}

@@ -20,7 +20,7 @@ const productsApi = createApi({
             limit: limit.toString(),
           }).toString();
       
-          console.log("Fetching products with query:", `/?${queryParams}`); // ✅ Debugging
+          console.log("Fetching products with query:", `/?${queryParams}`); 
       
           return `/?${queryParams}`;
         },
@@ -29,8 +29,8 @@ const productsApi = createApi({
        
 
               fetchProductById: builder.query({
-                query: (id) => `/${id}`, // ✅ Use template literal for URL
-                providesTags:(result, error, id)  => [{type: "products" , id}], // ✅ Use the defined tag type
+                query: (id) => `/${id}`, 
+                providesTags:(result, error, id)  => [{type: "products" , id}], 
               }),
 
               AddProduct: builder.mutation({

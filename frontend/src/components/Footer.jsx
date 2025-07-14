@@ -47,16 +47,7 @@ const Footer = () => {
           <p className="text-sm mt-2">
             Join our email list to get 10% off your first order, plus first dibs on exclusive offers + scent-illating news.
           </p>
-          <div className="mt-4 flex">
-            <input
-              type="email"
-              placeholder="email address"
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <button className="bg-primary text-white px-4 py-2 rounded-r-md hover:bg-primary-dark">
-              sign up
-            </button>
-          </div>
+          
         </div>
       </div>
     </footer>

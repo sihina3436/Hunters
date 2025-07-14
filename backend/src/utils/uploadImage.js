@@ -1,4 +1,4 @@
-// utils/cloudinaryUpload.js
+
 const cloudinary = require("cloudinary").v2;
 const streamifier = require("streamifier");
 require("dotenv").config();
@@ -15,7 +15,7 @@ const opts = {
   resource_type: "auto",
 };
 
-// ► old: base‑64 data‑URI
+
 const uploadBase64 = (dataUri) =>
   new Promise((resolve, reject) => {
     cloudinary.uploader.upload(dataUri, opts, (err, result) => {
@@ -24,7 +24,7 @@ const uploadBase64 = (dataUri) =>
     });
   });
 
-// ► new: raw Buffer (uses upload_stream)
+
 const uploadBuffer = (buffer, mimetype) =>
   new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(

@@ -11,10 +11,10 @@ const  filters = {
     categories: ['all','accessories','dress','jewellery','cosmetics'],
     colors: ['all','black','white','red','blue','gold','silver','green','beige'],
     priceRange:[
-        {label: "Under LKR 50",min:0,max:50},
-        {label: "LKR 50 to LKR 100",min:50,max:100},
-        {label: "LKR 100 to LKR 200",min:100,max:200},
-        {label: "LKR 200 to above",min:200,max:Infinity}
+        {label: "Under LKR 500",min:0,max:500},
+        {label: "LKR 500 to LKR 1000",min:500,max:1000},
+        {label: "LKR 1000 to LKR 5000",min:1000,max:5000},
+        {label: "LKR 5000 to above",min:5000,max:Infinity}
     ]
 
 }
