@@ -58,6 +58,7 @@ const ReviewsCart = ({ ProductRevies }) => {
       />
 
       {/* Sort & Filter Section */}
+      {filteredReviews.length > 0 && (
       <div className="w-full max-w-6xl mx-auto flex flex-wrap gap-6 items-center justify-between mb-8">
         <div className="flex items-center gap-3">
           <label className="text-sm text-gray-600 font-medium">Sort by:</label>
@@ -85,6 +86,7 @@ const ReviewsCart = ({ ProductRevies }) => {
           </select>
         </div>
       </div>
+      )}
 
       {/* Review List (Full Width) */}
       <div className="w-full max-w-7xl mx-auto">
