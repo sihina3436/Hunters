@@ -7,9 +7,9 @@ import { logout } from '../../redux/features/auth/authSlice'
 const navItems = [
   { path: '/dashboard', label: 'Dashboard' },
   { path: '/dashboard/orders', label: 'Orders' },
-  { path: '/dashboard/payments', label: 'Payments' },
+  // { path: '/dashboard/payments', label: 'Payments' },
   { path: '/dashboard/profile', label: 'Profile' },
-  { path: '/dashboard/reviews', label: 'Reviews' },
+  // { path: '/dashboard/reviews', label: 'Reviews' },
   { path: '/dashboard/seller-support', label: 'Seller Support' }
 ]
 

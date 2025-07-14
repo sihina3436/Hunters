@@ -59,9 +59,7 @@ const Router = createBrowserRouter([
       /* ---------- user routes ---------- */
       { path: '', element: <UserDMain /> },
       { path: 'orders', element: <UserOrder/> },
-      { path: 'payments', element: <div>User payments</div> },
       { path: 'profile', element: <UserProfile/> },
-      { path: 'reviews', element: <div>User reviews</div> },
       { path: 'seller-support', element: <UserChat/> },
 
       /* ---------- admin routes ---------- */ 
