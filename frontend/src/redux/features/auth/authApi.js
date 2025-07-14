@@ -1,25 +1,23 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getBaseURL } from '../../../utils/baseURL';
 
-// create API slice using Redux Toolkit 
 const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({ 
     baseUrl: `${getBaseURL()}/api/auth`, 
-    credentials: 'include',  // Ensures cookies are sent with requests
+    credentials: 'include',  
   }),
   tagTypes: ['Users'], 
-  // Define the endpoints for the API
   endpoints: (builder) => ({
-    registerUser: builder.mutation({   // Register a new user
+    registerUser: builder.mutation({
       query: (newUser) => ({
-        url: '/register', // API route for user registration
-        method: 'POST',   // HTTP method
-        body: newUser,    // Request payload (user data)
+        url: '/register', 
+        method: 'POST',
+        body: newUser,
         headers: { 'Content-Type': 'application/json' }, 
       }),
     }),
-    loginUser: builder.mutation({  // Log in an existing user
+    loginUser: builder.mutation({
       query: (loginUser) => ({
         url: '/login', 
         method: 'POST',
@@ -27,7 +25,7 @@ const authApi = createApi({
         headers: { 'Content-Type': 'application/json' }, 
       }),
     }),
-    logoutUser: builder.mutation({  // Log out the current user
+    logoutUser: builder.mutation({
       query: (loginUser) => ({
         url: '/logout', 
         method: 'POST'
@@ -36,45 +34,48 @@ const authApi = createApi({
     getUser: builder.query({
       query: (loginUser) => ({
         url: '/users', 
-        method: 'POST',
+        method: 'GET',
       }),
       refetchOnMount: true, 
       invalidatesTags: ['Users'], 
     }),
-    deleteUser: builder.mutation({ // Delete a  user by ID
+    deleteUser: builder.mutation({
       query: (userId) => ({
         url: `/users/${userId}`, 
         method: 'DELETE',
       }),
     }),
-    updateUserRole: builder.mutation({ // Update a user's role (e.g., Admin, User)
+    updateUserRole: builder.mutation({
       query: ({ userId, role }) => ({
         url: `/users/${userId}`, 
-        method: 'PATCH',
+        method: 'PUT',
         body: { role },
       }),
       refetchOnMount: true, 
-      invalidatesTags: ['Users'],
+      invalidatesTags: ['Users'], 
     }),
-    editProfile: builder.mutation({ // Edit user profile
-      query: ({ profileData }) => ({
-        url: `/edit-profile/`, 
-        method: 'PATCH',
-        body: profileData,
-      }),
-    })
+
+    editProfile: builder.mutation({
+      query: (data) => ({
+    url: `/edit-profile`,
+    method: 'PATCH',
+    body: data,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }),
+}),
+  getUserByEmail: builder.query({
+    query: (email) => ({
+      url: `/user-by-email/${encodeURIComponent(email)}`, 
+      method: 'GET',
+    }),
+    providesTags: ['Users'], 
+  }),
+
 
   }),
 });
-// Exporting generated hooks for usage in components
-export const {
-  useRegisterUserMutation,
-  useLoginUserMutation,
-  useLogoutUserMutation,
-  useGetUserQuery,
-  useDeleteUserMutation,
-  useUpdateUserRoleMutation,
-  useEditProfileMutation } = authApi;
 
-// Exporting the API slice reducer for Redux store configuration
+export const { useRegisterUserMutation, useLoginUserMutation, useLogoutUserMutation, useGetUserQuery, useDeleteUserMutation, useUpdateUserRoleMutation, useEditProfileMutation, useGetUserByEmailQuery } = authApi;
 export default authApi;

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import RatingStars from "../../components/RatingStars";
-import { addToCart } from "../../redux/features/CartReducer";
+import { addToCart } from "../../redux/features/cart/CartReducer";
 
 const ProductGrid = ({products}) => {
 
@@ -37,14 +37,14 @@ const ProductGrid = ({products}) => {
               {product.oldPrice ? (
                 <>
                   <span className="line-through text-gray-400">
-                    ${product.oldPrice}
+                    LKR {product.oldPrice}
                   </span>
                   <span className="text-red-500 font-bold ml-2">
-                    ${product.price}
+                    LKR {product.price}
                   </span>
                 </>
               ) : (
-                <span className="font-bold">${product.price}</span>
+                <span className="font-bold">LKR {product.price}</span>
               )}
             </div>
             <div className="mt-2 text-sm text-gray-600">Color: {product.color}</div>
