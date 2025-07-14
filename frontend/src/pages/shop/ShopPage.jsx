@@ -11,10 +11,10 @@ const  filters = {
     categories: ['all','accessories','dress','jewellery','cosmetics'],
     colors: ['all','black','white','red','blue','gold','silver','green','beige'],
     priceRange:[
-        {label: "Under $50",min:0,max:50},
-        {label: "$50 to $100",min:50,max:100},
-        {label: "$100 to $200",min:100,max:200},
-        {label: "$200 to above",min:200,max:Infinity}
+        {label: "Under LKR 50",min:0,max:50},
+        {label: "LKR 50 to LKR 100",min:50,max:100},
+        {label: "LKR 100 to LKR 200",min:100,max:200},
+        {label: "LKR 200 to above",min:200,max:Infinity}
     ]
 
 }
@@ -41,34 +41,7 @@ const ShopPage = () => {
         limit: productsPerPage,
         
     });
-    console.log("product is"+products);
-
-    // // Filtering Function
-    // const applyFilters = () => {
-    //     let filterdProducts = ProductData;
-
-    //     //Filter by Category
-    //     if(filtersState.category && filtersState.category !== 'all'){
-    //         filterdProducts = filterdProducts.filter(product => product.category === filtersState.category);
-    //     }
-
-    //     //Filter by Color
-    //     if(filtersState.color && filtersState.color !== 'all'){
-    //         filterdProducts = filterdProducts.filter(product => product.color.includes(filtersState.color));
-    //     }
-
-    //     //Filter by Price Range
-    //     if(filtersState.priceRange){
-    //         filterdProducts = filterdProducts.filter(product => product.price >= filtersState.priceRange.min && product.price <= filtersState.priceRange.max);
-    //     }
-
-    //     setProducts(filterdProducts);
-    // }
-
-    // useEffect(() => {
-    //     applyFilters();
-    // }, [filtersState]);
-
+    
     const clearFilters = () => {
         setFiltersState({
             category: 'all',
@@ -99,7 +72,7 @@ const ShopPage = () => {
     {/* Shop Page Header */}
     <section className='max-w-[1400px] mt-8 ml-auto mr-auto mb-3 py-20 px-4 '>
     <h2 className="relative mb-4 text-[42px] font-semibold font-custom text-text-dark text-center after:content-[''] after:block after:w-28 after:h-1 after:bg-primary after:mx-auto after:mt-2">
-            Shop Page
+            Discover What's New
         </h2>
        {/* filter and cart section */}
     </section>
