@@ -6,7 +6,6 @@ import SelectInput from "./SelectInput";
 import UploadImage from "./UploadImage";
 import { useAddProductMutation } from "../../../../redux/features/products/productsApi";
 
-
 // ─────────────────────────────────  constants
 const categories = [
   { label: "All", value: "all" },
@@ -29,10 +28,11 @@ const colors = [
   { label: "Beige", value: "beige" },
 ];
 
-// ─────────────────────────────────  component
+const sizeOptions = ["XS", "S", "M", "L", "XL", "XXL"]; // ✅ Added size options
+
 const AddProduct = () => {
-  const { user } = useSelector((state) => state.auth);   // ✅ grab the user
-  const navigate  = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     name: "",
@@ -40,27 +40,29 @@ const AddProduct = () => {
     color: "",
     price: "",
     description: "",
+    sizes: [], // ✅ Added sizes field to form
   });
-  const [image, setImage] = useState("");                // URL from <UploadImage />
 
-  // ✅ rename the RTK‑Query tuple so it doesn’t collide with component name
+  const [image, setImage] = useState("");
   const [addProduct, { isLoading }] = useAddProductMutation();
 
-  // generic <input>/<select> handler
   const handleChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
+  const handleSizeChange = (e) => {
+    const size = e.target.value;
+    const isChecked = e.target.checked;
+    setForm((prev) => ({
+      ...prev,
+      sizes: isChecked
+        ? [...prev.sizes, size]
+        : prev.sizes.filter((s) => s !== size),
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // simple presence check
-    if (
-      !form.name ||
-      !form.category ||
-      !form.color ||
-      !form.price ||
-      !image
-    ) {
+    if (!form.name || !form.category || !form.color || !form.price || !image) {
       alert("Please fill all fields (including an image).");
       return;
     }
@@ -68,14 +70,13 @@ const AddProduct = () => {
     try {
       await addProduct({ ...form, image, author: user?._id }).unwrap();
       alert("Product added successfully 🎉");
-
-      // reset form
       setForm({
         name: "",
         category: "",
         color: "",
         price: "",
         description: "",
+        sizes: [],
       });
       setImage("");
       navigate("/shop");
@@ -126,15 +127,29 @@ const AddProduct = () => {
           icon="ri-price-tag-2-fill"
         />
 
-        {/* 🔹 Pass the setter **directly** – UploadImage will give us a plain URL string */}
+        {/* 🔥 Sizes Checkboxes */}
+        <div>
+          <label className="block text-sm font-medium">Sizes</label>
+          <div className="mt-2 flex flex-wrap gap-4">
+            {sizeOptions.map((size) => (
+              <label key={size} className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  value={size}
+                  checked={form.sizes.includes(size)}
+                  onChange={handleSizeChange}
+                  className="h-4 w-4"
+                />
+                <span>{size}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
         <UploadImage name="image" setImage={setImage} />
-        
 
         <div>
-          <label
-            htmlFor="description"
-            className="block text-sm font-medium"
-          >
+          <label htmlFor="description" className="block text-sm font-medium">
             Description
           </label>
           <textarea

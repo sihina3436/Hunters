@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const Order = require('./orders.model'); // Ensure this is the correct path to your Mongoose model
+const Order = require('./orders.model');
 
 // Create Checkout Session
 router.post('/create-checkout-session', async (req, res) => {
@@ -10,12 +10,12 @@ router.post('/create-checkout-session', async (req, res) => {
   try {
     const lineItems = products.map((product) => ({
       price_data: {
-        currency: 'usd',
+        currency: 'lkr',
         product_data: {
-          name: product.name,
+          name: `${product.name} (${product.size || "No Size"})`, // ✅ include size in Stripe name
           images: [product.image],
         },
-        unit_amount: Math.round(product.price * 100), // price in cents
+        unit_amount: Math.round(product.price * 100),
       },
       quantity: product.quantity,
     }));
@@ -37,7 +37,7 @@ router.post('/create-checkout-session', async (req, res) => {
 
 // Confirm Payment
 router.post('/confirm-payment', async (req, res) => {
-  const { session_id } = req.body;
+  const { session_id, products } = req.body;
 
   try {
     const session = await stripe.checkout.sessions.retrieve(session_id, {
@@ -46,14 +46,14 @@ router.post('/confirm-payment', async (req, res) => {
 
     const paymentIntentId = session.payment_intent.id;
 
-    // Check if order already exists
     let order = await Order.findOne({ orderId: paymentIntentId });
 
     if (!order) {
-      const lineItems = session.line_items.data.map((item) => ({
-        productId: item.price.product || 'custom_product_id',
+      const lineItems = session.line_items.data.map((item, i) => ({
+        productId: products[i]?._id || 'unknown_product_id',
         quantity: item.quantity,
         price: item.price.unit_amount / 100,
+        size: products[i]?.size || 'N/A', // ✅ include size
       }));
 
       const amount = session.amount_total / 100;
@@ -66,12 +66,10 @@ router.post('/confirm-payment', async (req, res) => {
         status: session.payment_intent.status === 'succeeded' ? 'pending' : 'failed',
       });
     } else {
-      // Update status if order exists
       order.status = session.payment_intent.status === 'succeeded' ? 'pending' : 'failed';
     }
 
     await order.save();
-
     res.json({ order });
   } catch (error) {
     console.error('Error confirming payment:', error.message);
@@ -79,7 +77,7 @@ router.post('/confirm-payment', async (req, res) => {
   }
 });
 
-// get order by email address
+// Get orders by email
 router.get("/:email", async (req, res) => {
   const email = req.params.email;
   if (!email) {
@@ -87,12 +85,9 @@ router.get("/:email", async (req, res) => {
   }
 
   try {
-    const orders = await Order.find({ email: email });
-
-    if (orders.length === 0 || !orders) {
-      return res
-        .status(400)
-        .send({ orders: 0, message: "No orders found for this email" });
+    const orders = await Order.find({ email });
+    if (!orders.length) {
+      return res.status(404).send({ orders: 0, message: "No orders found for this email" });
     }
     res.status(200).send({ orders });
   } catch (error) {
@@ -101,7 +96,7 @@ router.get("/:email", async (req, res) => {
   }
 });
 
-// get order by id
+// Get single order by ID
 router.get("/order/:id", async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
@@ -110,67 +105,29 @@ router.get("/order/:id", async (req, res) => {
     }
     res.status(200).send(order);
   } catch (error) {
-    console.error("Error fetching orders by user id", error);
-    res.status(500).send({ message: "Failed to fetch orders by user id" });
+    console.error("Error fetching order", error);
+    res.status(500).send({ message: "Failed to fetch order" });
   }
 });
 
-// get all orders
+// Get all orders
 router.get("/", async (req, res) => {
   try {
     const orders = await Order.find().sort({ createdAt: -1 });
-    if (orders.length === 0) {
+    if (!orders.length) {
       return res.status(404).send({ message: "No orders found", orders: [] });
     }
-
     res.status(200).send(orders);
   } catch (error) {
-    console.error("Error fetching all orders", error);
-    res.status(500).send({ message: "Failed to fetch all orders" });
+    console.error("Error fetching orders", error);
+    res.status(500).send({ message: "Failed to fetch orders" });
   }
 });
 
-// update order status
-// router.patch("/update-order-status/:id", async (req, res) => {
-//   const { id } = req.params;
-//   const { status } = req.body;
-//   if (!status) {
-//     return res.status(400).send({ message: "Status is required" });
-//   }
-
-//   try {
-//     const updatedOrder = await Order.findByIdAndUpdate(
-//       id,
-//       {
-//         status,
-//         updatedAt: new Date(),
-//       },
-//       {
-//         new: true,
-//         runValidators: true,
-//       }
-//     );
-
-//     if(!updatedOrder) {
-//       return res.status(404).send({ message: "Order not found" });
-//     }
-
-//     res.status(200).json({
-//       message: "Order status updated successfully",
-//       order: updatedOrder
-//     })
-
-//   } catch (error) {
-//     console.error("Error updating order status", error);
-//     res.status(500).send({ message: "Failed to update order status" });
-//   }
-// });
-
+// Update order status
 router.patch("/update-order-status/:id", async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
-
-  console.log("Updating order:", id, "->", status);
 
   if (!status) {
     return res.status(400).send({ message: "Status is required" });
@@ -179,14 +136,8 @@ router.patch("/update-order-status/:id", async (req, res) => {
   try {
     const updatedOrder = await Order.findByIdAndUpdate(
       id,
-      {
-        status,
-        updatedAt: new Date(),
-      },
-      {
-        new: true,
-        runValidators: true,
-      }
+      { status, updatedAt: new Date() },
+      { new: true, runValidators: true }
     );
 
     if (!updatedOrder) {
@@ -195,17 +146,16 @@ router.patch("/update-order-status/:id", async (req, res) => {
 
     res.status(200).json({
       message: "Order status updated successfully",
-      order: updatedOrder
+      order: updatedOrder,
     });
-
   } catch (error) {
-    console.error("Error updating order status:", error);
+    console.error("Error updating order status", error);
     res.status(500).send({ message: "Failed to update order status" });
   }
 });
 
-// delete order
-router.delete('/delete-order/:id', async( req, res) => {
+// Delete order
+router.delete('/delete-order/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -216,13 +166,11 @@ router.delete('/delete-order/:id', async( req, res) => {
     res.status(200).json({
       message: "Order deleted successfully",
       order: deletedOrder
-    })
-    
+    });
   } catch (error) {
     console.error("Error deleting order", error);
     res.status(500).send({ message: "Failed to delete order" });
   }
-} )
-
+});
 
 module.exports = router;

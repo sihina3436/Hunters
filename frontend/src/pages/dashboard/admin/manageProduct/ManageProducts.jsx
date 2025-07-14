@@ -54,7 +54,9 @@ const ManageProducts = () => {
 
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold"><i class="ri-handbag-line text-primary text-2xl"></i>Manage Products</h2>
+          <h2 className="text-2xl font-bold">
+            <i className="ri-handbag-line text-primary text-2xl"></i> Manage Products
+          </h2>
           <p className="text-sm text-gray-500">
             Showing {startProduct} to {endProduct} of {totalProducts} products
           </p>
@@ -66,7 +68,8 @@ const ManageProducts = () => {
               <tr>
                 <th className="text-left px-6 py-3">No</th>
                 <th className="text-left px-6 py-3">Product Name</th>
-                <th className="text-left px-6 py-3">Publish Date</th>
+                <th className="text-left px-6 py-3">Sizes</th> {/* NEW column */}
+                {/* <th className="text-left px-6 py-3">Publish Date</th> */}
                 <th className="text-left px-6 py-3">Manage</th>
                 <th className="text-left px-6 py-3">Actions</th>
               </tr>
@@ -76,7 +79,15 @@ const ManageProducts = () => {
                 <tr key={product._id} className="border-t hover:bg-gray-50">
                   <td className="px-6 py-4">{index + 1}</td>
                   <td className="px-6 py-4 font-medium">{product.name}</td>
-                  <td className="px-6 py-4">{formatDate(product.createdAt)}</td>
+
+                  {/* Display sizes as comma-separated or "N/A" */}
+                  <td className="px-6 py-4">
+                    {product.sizes && product.sizes.length > 0
+                      ? product.sizes.join(', ')
+                      : 'N/A'}
+                  </td>
+
+                  {/* <td className="px-6 py-4">{formatDate(product.createdAt)}</td> */}
                   <td className="px-6 py-4">
                     <Link to={`/dashboard/update-products/${product._id}`}>
                       <button className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm text-primary border border-primary hover:bg-blue-50 transition">
@@ -131,8 +142,6 @@ const ManageProducts = () => {
           </button>
         </div>
       </div>
-
-   
     </>
   );
 };

@@ -45,7 +45,7 @@ const AdminDashboard = () => {
                ZeroZCloths<span className='text-primary'>.</span>
              </Link>
            </div>
-           <p className='text-sm text-gray-500 italic text-center'>User Dashboard</p>
+           <p className='text-sm text-gray-500 italic text-center'>Admin Dashboard</p>
    
            <hr className='my-4 border-gray-300' />
    

@@ -29,6 +29,8 @@ const colors = [
   { label: "Beige", value: "beige" },
 ];
 
+const sizeOptions = ["XS", "S", "M", "L", "XL", "XXL"]; // Size options
+
 const UpdateProduct = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -40,7 +42,8 @@ const UpdateProduct = () => {
     color: '',
     description: '',
     image: '',
-    price: ''
+    price: '',
+    sizes: [], // add sizes here
   });
 
   const [newImage, setNewImage] = useState('');
@@ -57,20 +60,36 @@ const UpdateProduct = () => {
 
   useEffect(() => {
     if (ProductData) {
-      const { name, category, color, description, image: imageURL, price } = ProductData.product;
+      const { name, category, color, description, image: imageURL, price, sizes } = ProductData.product;
       setProduct({
         name: name || '',
         category: category || '',
         color: color || '',
         description: description || '',
         image: imageURL || '',
-        price: price || ''
+        price: price || '',
+        sizes: sizes || [],  // initialize sizes
       });
     }
   }, [ProductData]);
 
   const handleChange = (e) => {
     setProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  // New handler for size checkbox changes
+  const handleSizeChange = (e) => {
+    const size = e.target.value;
+    const checked = e.target.checked;
+    setProduct((prev) => {
+      if (checked) {
+        // add size
+        return { ...prev, sizes: [...prev.sizes, size] };
+      } else {
+        // remove size
+        return { ...prev, sizes: prev.sizes.filter(s => s !== size) };
+      }
+    });
   };
 
   const handleImageChange = (image) => {
@@ -146,6 +165,25 @@ const UpdateProduct = () => {
           onChange={handleChange}
           type="number"
         />
+
+        {/* Sizes checkboxes */}
+        <div>
+          <label className="block text-sm font-medium">Sizes</label>
+          <div className="mt-2 flex flex-wrap gap-4">
+            {sizeOptions.map((size) => (
+              <label key={size} className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  value={size}
+                  checked={product.sizes.includes(size)}
+                  onChange={handleSizeChange}
+                  className="h-4 w-4"
+                />
+                <span>{size}</span>
+              </label>
+            ))}
+          </div>
+        </div>
 
         <UploadImage name="image" setImage={handleImageChange} />
 

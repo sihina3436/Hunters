@@ -140,42 +140,6 @@ router.delete("/:id", async (req, res) => {
     }
 })
 
-// get related products
 
-// router.get('/related/:id', async (req, res) => {
-//     try {
-//         const {id} = req.params;
-//         if(!id) {
-//             return res.status(400).json({ message: 'Product ID is not found' });
-//         }
-//         const product = await Product.findById(id);
-//         if(!product) {
-//             return res.status(404).json({ message: 'Product not found' });
-//         }
-
-//         const titleRegex = new RegExp(
-//             product.name
-//               .split(" ")
-//               .filter((word) => word.length > 1)
-//               .join("|"),
-//             "i"
-//           );
-
-//           const relatedProducts = await Products.find({
-//             _id: { $ne: id }, // Exclude the current product
-//             $or: [
-//               { name: { $regex: titleRegex } }, // Match similar names
-//               { category: product.category }, // Match the same category
-//             ],
-//           });
-      
-//           res.status(200).send(relatedProducts);
-
-//     } catch (error) {
-//         console.error("Error fetching related products",error);
-//         res.status(500).json({ message: 'Fail to fetch related products' });    
-        
-//     }
-// })
 
 module.exports = router;

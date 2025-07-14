@@ -35,7 +35,8 @@ const Cart = ({ products, isOpen, onClose }) => {
                     <img src={item.image} alt='' className='w-16 h-16 object-cover mr-4'/>
                     <div>
                       <h5 className='text-lg font-medium'>{item.name}</h5>
-                      <p className='text-gray-600 text-sm'>${Number(item.price).toFixed(2)}</p>
+                      {item.size && <p className='text-sm text-gray-500'>Size: {item.size}</p>}
+                      <p className='text-gray-600 text-sm'>LKR{Number(item.price).toFixed(2)}</p>
                     </div>
                   </div>
                   <div className='flex items-center'>

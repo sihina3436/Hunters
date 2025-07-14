@@ -51,16 +51,16 @@ const OrderSummary = () => {
         <p className="text-text-dark">Selected Items: {selectedItems}</p>
         <div className="flex justify-between text-gray-700">
           <span>Total Price</span>
-          <span>${totalPrice.toFixed(2)}</span>
+          <span>LKR{totalPrice.toFixed(2)}</span>
         </div>
         <div className="flex justify-between text-gray-700">
           <span>Discount ({(discountRate * 100).toFixed(0)}%)</span>
-          <span>${discount.toFixed(2)}</span>
+          <span>LKR{discount.toFixed(2)}</span>
         </div>
         <hr className="my-4" />
         <div className="flex justify-between text-xl font-semibold">
           <span>Grand Total</span>
-          <span>${grandTotal.toFixed(2)}</span>
+          <span>LKR{grandTotal.toFixed(2)}</span>
         </div>
         <div className="mt-4 space-y-3">
           <button
