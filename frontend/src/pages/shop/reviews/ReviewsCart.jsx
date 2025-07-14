@@ -112,7 +112,7 @@ const ReviewsCart = ({ ProductRevies }) => {
                   <img
                     src={review.image}
                     alt="Review"
-                    className="w-40 h-auto object-cover rounded-lg shadow-md self-start"
+                    className="w-40 h-auto object-cover rounded-lg shadow-md self-start mx-10"
                   />
                 )}
               </div>
