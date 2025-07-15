@@ -9,9 +9,9 @@ import { useSelector } from 'react-redux';
 const AdminChat = () => {
 
   const {user} = useSelector((state) => state.auth);
-  const adminId2 = `user_${user._id}`; // Use the current admin's
+  // const adminId2 = `user_${user._id}`; // Use the current admin's
 
- const adminId = '68132d81d2cff31598b17d46';
+ const adminId = '6875f3f1c516a1d9184ce940';
 
  //console.log(`Admin ID: ${adminId}`);
  //console.log(`Admin ID2: ${adminId2}`);
