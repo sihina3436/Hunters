@@ -8,9 +8,8 @@ const FeaturedProducts = () => {
   const [minPrice] = useState('');
   const [maxPrice] = useState('');
   const [currentPage] = useState(1);
-  const [productsPerPage] = useState(100); 
-
-  const [visibleCount, setVisibleCount] = useState(9); // how many to show
+  const [productsPerPage] = useState(100);
+  const [visibleCount, setVisibleCount] = useState(9);
 
   const { data = {}, error, isLoading } = useFetchAllProductsQuery({
     category: category !== 'all' ? category : '',
@@ -24,15 +23,17 @@ const FeaturedProducts = () => {
   const { products = [] } = data;
 
   const handleLoadMore = () => {
-    setVisibleCount(prev => prev + 9); // load 11 more
+    setVisibleCount((prev) => prev + 9);
   };
 
   return (
-    <div className="max-w-[1400px] mx-auto p-8">
-      <h2 className="relative mb-4 text-[42px] font-semibold font-custom text-text-dark text-center after:content-[''] after:block after:w-28 after:h-1 after:bg-primary after:mx-auto after:mt-2">
+    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Section Title */}
+      <h2 className="relative mb-6 text-3xl sm:text-4xl font-semibold font-custom text-text-dark text-center after:content-[''] after:block after:w-28 after:h-1 after:bg-primary after:mx-auto after:mt-2">
         Featured Products
       </h2>
 
+      {/* Product Grid or Loader */}
       {isLoading ? (
         <p className="text-center text-gray-500">Loading...</p>
       ) : error ? (
@@ -41,6 +42,7 @@ const FeaturedProducts = () => {
         <>
           <ProductGrid products={products.slice(0, visibleCount)} />
 
+          {/* Load More Button */}
           {visibleCount < products.length && (
             <div className="text-center mt-10">
               <button

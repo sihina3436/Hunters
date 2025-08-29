@@ -26,9 +26,7 @@ const productsApi = createApi({
         },
         providesTags: ['Products'],
       }),
-       
-
-              fetchProductById: builder.query({
+        fetchProductById: builder.query({
                 query: (id) => `/${id}`, 
                 providesTags:(result, error, id)  => [{type: "products" , id}], 
               }),
@@ -64,10 +62,18 @@ const productsApi = createApi({
                 }),
                 invalidatesTags: (result, error, id) => [{ type: "Products", id }],
               }),
+                  reduceProductStock: builder.mutation({
+      query: ({ productId, quantity }) => ({
+        url: '/products/reduce-stock',
+        method: 'POST',
+        body: { productId, quantity },
+      }),
+      invalidatesTags: ['Product'],
+    }),
     }),
     
 });
 
-export const {useFetchAllProductsQuery, useFetchProductByIdQuery, useAddProductMutation, useUpdateProductMutation, useDeleteProductMutation, useFetchRelatedProductsQuery} = productsApi;
+export const {useFetchAllProductsQuery, useFetchProductByIdQuery, useAddProductMutation, useUpdateProductMutation, useDeleteProductMutation, useFetchRelatedProductsQuery, useReduceProductStockMutation} = productsApi;
 
 export default productsApi;
