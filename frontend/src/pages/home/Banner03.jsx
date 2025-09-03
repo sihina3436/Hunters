@@ -8,14 +8,14 @@ const Banner03 = () => {
       {/* Text Section */}
       <div className="max-w-[600px] mx-auto text-center md:text-left">
         <h1 className="uppercase text-3xl sm:text-4xl md:text-5xl font-bold">
-          Enjoy Free Shipping on All Orders Over $50
+          Enjoy Free Shipping on All Orders Over Rs.10,000
         </h1>
         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mt-2">
           Shop Now!
         </h2>
         <h4 className="mt-3 text-sm sm:text-base md:text-lg text-primary mb-5">
           Get your favorites delivered straight to your doorstep—free of charge!
-          Spend $50 or more and enjoy effortless shopping with zero shipping costs.
+          Spend Rs.10,000 or more and enjoy effortless shopping with zero shipping costs.
         </h4>
 
         <button className="py-2 px-4 sm:py-3 sm:px-6 text-sm sm:text-base text-white bg-primary rounded-[5px] cursor-pointer transition-all duration-300 hover:bg-primary-dark">

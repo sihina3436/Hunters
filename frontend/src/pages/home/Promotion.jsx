@@ -8,21 +8,21 @@ const Promotions = () => {
   const promotions = [
     {
       title: "20% Off On Tank Tops",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac dictum.",
+      description: "Stay cool and stylish this season! Grab your favorite tank tops at a special 20% discount.",
       image: promotion01, 
       buttonText: "SHOP NOW",
       link: "/shop",
     },
     {
       title: "Latest Eyewear For You",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac dictum.",
+      description: "Upgrade your look with the trendiest eyewear. Sleek, stylish, and perfect for every occasion.",
       image: promotion02, 
       buttonText: "SHOP NOW",
       link: "/shop",
     },
     {
-      title: "Let's Lorem Suit Up!",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac dictum.",
+      title: "Elevate Your Style with Premium Suits",
+      description: "Step into sophistication! Explore our premium suits and elevate your style effortlessly.",
       image: promotion03,
       buttonText: "CHECK OUT",
       link: "/shop",

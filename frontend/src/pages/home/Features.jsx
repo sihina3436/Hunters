@@ -1,5 +1,5 @@
 import React from "react";
-import IslandDelivery from "../../assets/delivery.png"; // new icon for Islandwide Delivery
+import IslandDelivery from "../../assets/delivery.png";
 import Quality from "../../assets/Quality.png";
 import Offers from "../../assets/Offers.png";
 import Payment from "../../assets/Payments.png";
