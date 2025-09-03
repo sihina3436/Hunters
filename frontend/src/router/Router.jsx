@@ -32,8 +32,8 @@ import OrderDetails from '../pages/dashboard/user/orders/OrderDetails.jsx';
 import ManageOrder from '../pages/dashboard/admin/ManageOrders/ManageOrder.jsx';
 import ViewOrder from '../pages/dashboard/admin/ManageOrders/ViewOrder.jsx';
 import ViewContacts from '../pages/dashboard/admin/contact/ViewContacts.jsx';
-import ForgotPassword from '../components/ForgotPassword.jsx';
-import ResetPassword from '../components/ResetPassword.jsx';
+import TermsAndConditions from '../components/TermsAndConditions.jsx';
+
 
 const Router = createBrowserRouter([
   {
@@ -50,8 +50,6 @@ const Router = createBrowserRouter([
   },
   { path: '/login', element: <Login /> },
   { path: '/register', element: <Register /> },
-  { path: '/forgot-password', element:<ForgotPassword/> },
-  { path: '/reset-password', element: <ResetPassword/> },
   {
     path: '/dashboard',
     element: (
@@ -173,6 +171,10 @@ const Router = createBrowserRouter([
       {
         path: "/shippinginfo",
         element: <ShippingInfo/>
+      },
+            {
+        path: "/termsandconditions",
+        element: <TermsAndConditions/>
       }
 ]);
 
