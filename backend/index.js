@@ -18,10 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: [
-      'https://www.zerozclothes.com',
-      'https://hunters-8ttt.vercel.app',
-    ],
+    origin: 'https://www.zerozclothes.com', 
     credentials: true,
   })
 );
