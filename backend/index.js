@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: 'https://www.zerozclothes.com/', 
+    origin: 'https://www.zerozclothes.com', 
     credentials: true,
   })
 );
