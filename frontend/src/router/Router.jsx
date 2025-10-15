@@ -10,8 +10,8 @@ import SingleProducts from '../pages/shop/productDetails/SingleProducts';
 import PaymentSuccess from '../components/PaymentSuccess';
 import PrivateRoute from './PrivateRoute.jsx';
 import DashBoardLayout from '../pages/dashboard/DashBoardLayout.jsx';
-import UserDMain from '../pages/dashboard/user/dashboard/userDMain.jsx';
-import AdminDMain from '../pages/dashboard/admin/dashboard/AdminDMain.jsx';
+import UserDMain from '../../src/pages/dashboard/user/dashboard/UserDMain.jsx'
+import AdminDMain from '../../src/pages/dashboard/admin/dashboard/AdminDMain.jsx'
 import About from '../components/About.jsx';
 import ContactUs from '../components/ContactUs.jsx';
 import Returns from '../components/Returns.jsx';
