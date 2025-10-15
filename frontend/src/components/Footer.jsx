@@ -36,6 +36,7 @@ const Footer = () => {
             <ul className="mt-2 space-y-1">
               <li className="hover:text-primary cursor-pointer"><Link to = "/about">About ZeroZclothes</Link> </li>
               <li className="hover:text-primary cursor-pointer"><Link to = "/privacypolicy">Privacy Policy</Link></li>
+              <li className="hover:text-primary cursor-pointer"><Link to = "/termsandconditions">Terms & Conditions</Link></li>
               <li className="hover:text-primary cursor-pointer"><Link to = "/careers">Careers </Link></li>
             </ul>
           </div>

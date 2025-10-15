@@ -10,8 +10,8 @@ import SingleProducts from '../pages/shop/productDetails/SingleProducts';
 import PaymentSuccess from '../components/PaymentSuccess';
 import PrivateRoute from './PrivateRoute.jsx';
 import DashBoardLayout from '../pages/dashboard/DashBoardLayout.jsx';
-import UserDMain from '../pages/dashboard/user/dashboard/userDMain.jsx';
-import AdminDMain from '../pages/dashboard/admin/dashboard/AdminDMain.jsx';
+import UserDMain from '../../src/pages/dashboard/user/dashboard/UserDMain.jsx'
+import AdminDMain from '../../src/pages/dashboard/admin/dashboard/AdminDMain.jsx'
 import About from '../components/About.jsx';
 import ContactUs from '../components/ContactUs.jsx';
 import Returns from '../components/Returns.jsx';
@@ -25,13 +25,16 @@ import UserChat from '../pages/chat/UserChat.jsx';
 import AddProduct from '../pages/dashboard/admin/addProduct/AddProduct.jsx';
 import ManageProducts from '../pages/dashboard/admin/manageProduct/ManageProducts.jsx';
 import UpdateProduct from '../pages/dashboard/admin/manageProduct/UpdateProduct.jsx';
-import ManageUsers from '../pages/dashboard/admin/users/manageUsers.jsx';
+import ManageUsers from '../pages/dashboard/admin/users/ManageUsers.jsx';
 import UserProfile from '../pages/dashboard/user/profile/UserProfile.jsx';
 import UserOrder from '../pages/dashboard/user/orders/UserOrder.jsx';
 import OrderDetails from '../pages/dashboard/user/orders/OrderDetails.jsx';
 import ManageOrder from '../pages/dashboard/admin/ManageOrders/ManageOrder.jsx';
 import ViewOrder from '../pages/dashboard/admin/ManageOrders/ViewOrder.jsx';
 import ViewContacts from '../pages/dashboard/admin/contact/ViewContacts.jsx';
+import ForgotPassword from '../components/ForgotPassword.jsx';
+import ResetPassword from '../components/ResetPassword.jsx';
+import TermsAndConditions from '../components/TermsAndConditions.jsx';
 
 
 const Router = createBrowserRouter([
@@ -49,6 +52,8 @@ const Router = createBrowserRouter([
   },
   { path: '/login', element: <Login /> },
   { path: '/register', element: <Register /> },
+  { path: '/forgot-password', element:<ForgotPassword/> },
+  { path: '/reset-password', element: <ResetPassword/> },
   {
     path: '/dashboard',
     element: (
@@ -170,6 +175,10 @@ const Router = createBrowserRouter([
       {
         path: "/shippinginfo",
         element: <ShippingInfo/>
+      },
+            {
+        path: "/termsandconditions",
+        element: <TermsAndConditions/>
       }
 ]);
 

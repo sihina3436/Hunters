@@ -8,21 +8,26 @@ const router = express.Router();
 
 // POST a product
 router.post('/create-product', async (req, res) => {
-    try {
-        const newProduct = new Product({...req.body});
-        const savedProduct = await newProduct.save();
-        const revies = await Reviews.find({ productId: savedProduct._id });
-        if(revies.length > 0) {
-            const totalRating = revies.reduce((acc, review) => acc + review.rating, 0);
-            const averageRating = totalRating / revies.length;
-            savedProduct.rating = averageRating.toFixed(1);
-            await savedProduct.save();
-        }
-        res.status(201).json(savedProduct);
-    } catch (error) {
-        console.error("Error Creating new product",error);
-        res.status(500).json({ message: 'Fail Create new product' });
+  try {
+    const newProduct = new Product({
+      ...req.body,
+      images: req.body.images || [],
+    });
+    const savedProduct = await newProduct.save();
+
+    const reviews = await Reviews.find({ productId: savedProduct._id });
+    if (reviews.length > 0) {
+      const totalRating = reviews.reduce((acc, review) => acc + review.rating, 0);
+      const averageRating = totalRating / reviews.length;
+      savedProduct.rating = averageRating.toFixed(1);
+      await savedProduct.save();
     }
+
+    res.status(201).json(savedProduct);
+  } catch (error) {
+    console.error("Error Creating new product", error);
+    res.status(500).json({ message: 'Fail Create new product' });
+  }
 });
 
 // get all products
@@ -109,19 +114,26 @@ router.get('/:id', async (req, res) => {
 });
 
 // update a product
-router.patch("/update-product/:id",  verifyToken ,verifyAdmin ,async (req, res) => {
-    try {
-        const productId = req.params.id;
-        const updatedProduct = await Product.findByIdAndUpdate(productId,{...req.body}, { new: true });
-        if (!updatedProduct) {
-            return res.status(404).json({ message: 'Product not found' });
-        }
-        res.status(200).send({message:"Product Updates Successfull..." ,updatedProduct});
-    } catch (error) {
-        console.error("Error updating product",error);
-        res.status(500).json({ message: 'Fail to update product' });
+router.patch("/update-product/:id", verifyToken, verifyAdmin, async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const updatedProduct = await Product.findByIdAndUpdate(
+      productId,
+      {
+        ...req.body,
+        images: req.body.images || [],
+      },
+      { new: true }
+    );
+    if (!updatedProduct) {
+      return res.status(404).json({ message: 'Product not found' });
     }
-})
+    res.status(200).send({ message: "Product Updates Successfull...", updatedProduct });
+  } catch (error) {
+    console.error("Error updating product", error);
+    res.status(500).json({ message: 'Fail to update product' });
+  }
+});
 
 // delete a product
 router.delete("/:id", async (req, res) => {
@@ -137,7 +149,39 @@ router.delete("/:id", async (req, res) => {
         console.error("Error deleting product",error);
         res.status(500).json({ message: 'Fail to delete product' });
     }
-})
+});
+
+router.post('/reduce-stock',  async (req, res) => {
+  const { productId, quantity } = req.body;
+
+  // Validate input
+  if (!productId || typeof quantity !== 'number' || quantity <= 0) {
+    return res.status(400).json({ message: 'Invalid productId or quantity' });
+  }
+
+  try {
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    if (product.currentStock < quantity) {
+      return res.status(400).json({ message: 'Not enough stock available' });
+    }
+
+    product.currentStock -= quantity;
+    await product.save();
+
+    res.status(200).json({
+      message: 'Stock reduced successfully',
+      productId: product._id,
+      currentStock: product.currentStock
+    });
+  } catch (error) {
+    console.error('Error reducing product stock:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
 

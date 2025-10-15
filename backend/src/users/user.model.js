@@ -10,7 +10,7 @@ const userSchema = new Schema({
     bio: { type: String, maxlength: 200 },
     profession: String,
 
-    // 📍 Address field
+    //Address field
     address: {
         street: { type: String },
         city: { type: String },
@@ -19,13 +19,17 @@ const userSchema = new Schema({
         country: { type: String }
     },
 
+    //OTP fields
+    resetOTP: String,
+    resetOTPExpires: Date,
+
     createdAt: {
         type: Date,
         default: Date.now
     }
 });
 
-// 🔒 Hash password before saving
+//Hash password before saving
 userSchema.pre('save', async function (next) {
     const user = this;
     if (!user.isModified('password')) return next();
@@ -34,7 +38,7 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
-// 🔐 Compare password method
+//Compare password method
 userSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 };

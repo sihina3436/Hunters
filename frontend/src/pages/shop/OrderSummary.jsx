@@ -1,46 +1,50 @@
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearCart } from '../../redux/features/cart/CartReducer.js';
-import { loadStripe } from '@stripe/stripe-js';
 import { getBaseURL } from '../../utils/baseURL.js';
-
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
+import { useNavigate } from 'react-router-dom';
 
 const OrderSummary = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); 
 
   const { user } = useSelector((state) => state.auth);
-  const { products, discount, discountRate, totalPrice, grandTotal, selectedItems } = useSelector((store) => store.cart);
+  const { products, discount, discountRate, totalPrice, grandTotal, selectedItems } =
+    useSelector((store) => store.cart);
 
   const handleClearCart = (e) => {
     e.stopPropagation();
     dispatch(clearCart());
   };
 
-  const makePayment = async (e) => {
+  const placeOrder = async (e) => {
     e.stopPropagation();
+    try {
+      const response = await fetch(`${getBaseURL()}/api/orders/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          products: products.map(p => ({
+            productId: p._id,
+            name: p.name,
+            price: p.price,
+            quantity: p.quantity,
+            size: p.size || "N/A"
+          })),
+          amount: grandTotal,
+          email: user?.email || "guest@example.com",
+        }),
+      });
 
-    const stripe = await stripePromise;
+      const data = await response.json();
 
-    const response = await fetch(`${getBaseURL()}/api/orders/create-checkout-session`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        products,
-        userId: user?._id,
-      }),
-    });
-
-    const session = await response.json();
-
-    const result = await stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-
-    if (result.error) {
-      console.log('Stripe redirect error:', result.error.message);
+      if (response.ok) {
+        dispatch(clearCart());
+       navigate('/success');
+      } else {
+        console.error("Order failed:", data.message);
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
     }
   };
 
@@ -70,10 +74,10 @@ const OrderSummary = () => {
             <span>Clear Cart</span> <i className="ri-delete-bin-7-line"></i>
           </button>
           <button
-            onClick={makePayment}
+            onClick={placeOrder}
             className="bg-green-600 px-3 py-1.5 text-white w-full rounded-md flex justify-center items-center gap-2"
           >
-            <span>Checkout</span> <i className="ri-bank-card-line"></i>
+            <span>Place Order</span> <i className="ri-bank-card-line"></i>
           </button>
         </div>
       </div>

@@ -6,7 +6,7 @@ import Alert from '../../../../components/Alert';
 import Spinner from '../../../../components/Spinner';
 import TextInput from '../addProduct/Textinput';
 import SelectInput from '../addProduct/SelectInput';
-import UploadImage from '../addProduct/UploadImage';
+import UploadMultipleImages from '../addProduct/UploadMultipleImages';
 
 const categories = [
   { label: "All", value: "all" },
@@ -46,7 +46,7 @@ const UpdateProduct = () => {
     sizes: [], // add sizes here
   });
 
-  const [newImage, setNewImage] = useState('');
+  const [newImages, setNewImages] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
 
   const {
@@ -101,7 +101,7 @@ const UpdateProduct = () => {
 
     const updatedProduct = {
       ...product,
-      image: newImage ? newImage : product.image,
+      image: newImages ? newImages : product.image,
       auther: user?.id,
     };
 
@@ -185,7 +185,7 @@ const UpdateProduct = () => {
           </div>
         </div>
 
-        <UploadImage name="image" setImage={handleImageChange} />
+        <UploadMultipleImages name="image" setNewImages={handleImageChange} />
 
         <div>
           <label

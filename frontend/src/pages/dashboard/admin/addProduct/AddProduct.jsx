@@ -1,23 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Textinput from "./Textinput";
-import SelectInput from "./SelectInput";
-import UploadImage from "./UploadImage";
 import { useAddProductMutation } from "../../../../redux/features/products/productsApi";
+import TextInput from "./Textinput";
+import SelectInput from "./SelectInput";
+import NumberInput from "./NumberInput";
+import UploadMultipleImages from "./UploadMultipleImages";
 
-// ─────────────────────────────────  constants
 const categories = [
-  { label: "All", value: "all" },
   { label: "Accessories", value: "accessories" },
   { label: "Dress", value: "dress" },
   { label: "Jewellery", value: "jewellery" },
   { label: "Cosmetics", value: "cosmetics" },
-  { label: "Skin Care", value: "skin‑care" },
+  { label: "Skin Care", value: "skin-care" },
 ];
 
 const colors = [
-  { label: "All", value: "all" },
   { label: "Black", value: "black" },
   { label: "White", value: "white" },
   { label: "Red", value: "red" },
@@ -28,7 +26,7 @@ const colors = [
   { label: "Beige", value: "beige" },
 ];
 
-const sizeOptions = ["XS", "S", "M", "L", "XL", "XXL"]; // ✅ Added size options
+const sizeOptions = ["XS", "S", "M", "L", "XL", "XXL"];
 
 const AddProduct = () => {
   const { user } = useSelector((state) => state.auth);
@@ -40,10 +38,11 @@ const AddProduct = () => {
     color: "",
     price: "",
     description: "",
-    sizes: [], // ✅ Added sizes field to form
+    sizes: [],
+    currentStock: 0,
   });
 
-  const [image, setImage] = useState("");
+  const [images, setImages] = useState([]);
   const [addProduct, { isLoading }] = useAddProductMutation();
 
   const handleChange = (e) =>
@@ -51,10 +50,11 @@ const AddProduct = () => {
 
   const handleSizeChange = (e) => {
     const size = e.target.value;
-    const isChecked = e.target.checked;
+    const checked = e.target.checked;
+
     setForm((prev) => ({
       ...prev,
-      sizes: isChecked
+      sizes: checked
         ? [...prev.sizes, size]
         : prev.sizes.filter((s) => s !== size),
     }));
@@ -62,14 +62,29 @@ const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.category || !form.color || !form.price || !image) {
-      alert("Please fill all fields (including an image).");
+
+    if (
+      !form.name ||
+      !form.category ||
+      !form.color ||
+      !form.price ||
+      images.length === 0
+    ) {
+      alert("Please fill all fields and upload at least one image.");
       return;
     }
 
     try {
-      await addProduct({ ...form, image, author: user?._id }).unwrap();
+      await addProduct({
+        ...form,
+        price: Number(form.price),
+        currentStock: Number(form.currentStock),
+        images,
+        author: user?._id,
+      }).unwrap();
+
       alert("Product added successfully 🎉");
+
       setForm({
         name: "",
         category: "",
@@ -77,8 +92,10 @@ const AddProduct = () => {
         price: "",
         description: "",
         sizes: [],
+        currentStock: 0,
       });
-      setImage("");
+      setImages([]);
+
       navigate("/shop");
     } catch (err) {
       console.error("Error adding product:", err);
@@ -91,7 +108,7 @@ const AddProduct = () => {
       <h2 className="mb-6 text-2xl font-bold">Add New Product</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <Textinput
+        <TextInput
           label="Product Name"
           name="name"
           value={form.name}
@@ -99,6 +116,17 @@ const AddProduct = () => {
           type="text"
           placeholder="Enter product name"
           icon="ri-shopping-bag-fill"
+        />
+
+        <NumberInput
+          label="Current Stock"
+          name="currentStock"
+          value={form.currentStock}
+          onChange={handleChange}
+          placeholder="Enter Current Stock"
+          icon="ri-stock-line"
+          required
+          min={0}
         />
 
         <SelectInput
@@ -110,24 +138,24 @@ const AddProduct = () => {
         />
 
         <SelectInput
-          label="Colors"
+          label="Color"
           name="color"
           value={form.color}
           onChange={handleChange}
           options={colors}
         />
 
-        <Textinput
+        <TextInput
           label="Price"
           name="price"
           value={form.price}
           onChange={handleChange}
           type="number"
-          placeholder="LKR 500"
+          placeholder="LKR 500"
           icon="ri-price-tag-2-fill"
         />
 
-        {/* 🔥 Sizes Checkboxes */}
+        {/* Sizes checkboxes */}
         <div>
           <label className="block text-sm font-medium">Sizes</label>
           <div className="mt-2 flex flex-wrap gap-4">
@@ -146,7 +174,7 @@ const AddProduct = () => {
           </div>
         </div>
 
-        <UploadImage name="image" setImage={setImage} />
+        <UploadMultipleImages setImages={setImages} />
 
         <div>
           <label htmlFor="description" className="block text-sm font-medium">
