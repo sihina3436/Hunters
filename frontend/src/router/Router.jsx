@@ -25,7 +25,7 @@ import UserChat from '../pages/chat/UserChat.jsx';
 import AddProduct from '../pages/dashboard/admin/addProduct/AddProduct.jsx';
 import ManageProducts from '../pages/dashboard/admin/manageProduct/ManageProducts.jsx';
 import UpdateProduct from '../pages/dashboard/admin/manageProduct/UpdateProduct.jsx';
-import ManageUsers from '../pages/dashboard/admin/users/manageUsers.jsx';
+import ManageUsers from '../pages/dashboard/admin/users/ManageUsers.jsx';
 import UserProfile from '../pages/dashboard/user/profile/UserProfile.jsx';
 import UserOrder from '../pages/dashboard/user/orders/UserOrder.jsx';
 import OrderDetails from '../pages/dashboard/user/orders/OrderDetails.jsx';
