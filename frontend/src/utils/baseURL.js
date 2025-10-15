@@ -1,3 +1,3 @@
 export const getBaseURL = () => {
-    return "https://hunters-opal.vercel.app"; 
+    return "https://hunters-rho.vercel.app"; 
 }
