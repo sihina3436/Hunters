@@ -1,3 +1,3 @@
 export const getBaseURL = () => {
-    return "http://localhost:5000"; 
+    return "https://hunters-git-development-sihina-nimnadas-projects.vercel.app/"; 
 }
