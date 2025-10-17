@@ -28,7 +28,7 @@ const ProductGrid = ({ products }) => {
               )}
               <Link to={`/shop/${product._id}`}>
                 <img
-                  src={product.images[1]}
+                  src={product.images[0]}
                   alt={product.name}
                   className="w-full h-48 object-cover rounded-xl hover:scale-105 transition-transform duration-300"
                 />
